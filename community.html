@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Naari Care</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+ <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-hindi">नारी</span> Care
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="features.html">Features</a>
+                    <a href="nutrition.html">Nutrition & Health</a>
+                    <a href="mental-wellness.html">Mental Wellness</a>
+                    <a href="about.html" class="active">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-login">Login / Sign Up</button>
+                    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Community Hero Section -->
+    <section class="page-hero community-hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1><i class="fas fa-users"></i> Community Space</h1>
+                <p class="hero-subtitle">Connect, Share, and Support Each Other</p>
+                <p class="hero-description">Join our vibrant community of women supporting each other through every stage of their wellness journey.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Dashboard -->
+    <section class="community-dashboard">
+        <div class="container">
+            <div class="community-layout">
+                <!-- Sidebar with Channels -->
+                <aside class="community-sidebar" data-aos="fade-right">
+                    <div class="sidebar-header">
+                        <h3><i class="fas fa-comments"></i> Channels</h3>
+                    </div>
+                    <div class="channel-list">
+                        <button class="channel-item active" data-channel="general">
+                            <i class="fas fa-hashtag"></i>
+                            <div>
+                                <span class="channel-name">General Discussion</span>
+                                <span class="channel-members">1,234 members</span>
+                            </div>
+                        </button>
+                        <button class="channel-item" data-channel="pregnancy">
+                            <i class="fas fa-baby"></i>
+                            <div>
+                                <span class="channel-name">Pregnancy Journey</span>
+                                <span class="channel-members">856 members</span>
+                            </div>
+                        </button>
+                        <button class="channel-item" data-channel="wellness">
+                            <i class="fas fa-spa"></i>
+                            <div>
+                                <span class="channel-name">Wellness Tips</span>
+                                <span class="channel-members">2,103 members</span>
+                            </div>
+                        </button>
+                        <button class="channel-item" data-channel="nutrition">
+                            <i class="fas fa-apple-alt"></i>
+                            <div>
+                                <span class="channel-name">Nutrition & Recipes</span>
+                                <span class="channel-members">1,567 members</span>
+                            </div>
+                        </button>
+                        <button class="channel-item" data-channel="fitness">
+                            <i class="fas fa-dumbbell"></i>
+                            <div>
+                                <span class="channel-name">Fitness & Exercise</span>
+                                <span class="channel-members">987 members</span>
+                            </div>
+                        </button>
+                        <button class="channel-item" data-channel="mental-health">
+                            <i class="fas fa-brain"></i>
+                            <div>
+                                <span class="channel-name">Mental Health</span>
+                                <span class="channel-members">1,345 members</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="community-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong>8,092</strong>
+                                <span>Total Members</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-comment-dots"></i>
+                            <div>
+                                <strong>456</strong>
+                                <span>Online Now</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Chat Area -->
+                <main class="community-main" data-aos="fade-up">
+                    <div class="chat-header">
+                        <div class="channel-info">
+                            <h2 id="currentChannelName"><i class="fas fa-hashtag"></i> General Discussion</h2>
+                            <p id="currentChannelDesc">A place for general conversations and introductions</p>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="icon-btn" title="Search messages"><i class="fas fa-search"></i></button>
+                            <button class="icon-btn" title="Notifications"><i class="fas fa-bell"></i></button>
+                            <button class="icon-btn" title="Channel info"><i class="fas fa-info-circle"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages-area" id="communityMessages">
+                        <!-- Messages will be loaded here by JavaScript -->
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="input-wrapper">
+                            <button class="icon-btn"><i class="fas fa-plus"></i></button>
+                            <input type="text" id="messageInput" placeholder="Share your thoughts with the community..." class="message-input">
+                            <button class="icon-btn"><i class="fas fa-smile"></i></button>
+                            <button class="btn btn-primary" id="sendBtn"><i class="fas fa-paper-plane"></i> Send</button>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Online Members Sidebar -->
+                <aside class="members-sidebar" data-aos="fade-left">
+                    <div class="sidebar-header">
+                        <h3><i class="fas fa-user-friends"></i> Online Members</h3>
+                        <span class="online-count">456 online</span>
+                    </div>
+                    <div class="members-list">
+                        <div class="member-item">
+                            <div class="member-avatar online">PS</div>
+                            <div class="member-info">
+                                <span class="member-name">Priya Sharma</span>
+                                <span class="member-status"><i class="fas fa-circle"></i> Active</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar online">AP</div>
+                            <div class="member-info">
+                                <span class="member-name">Ananya Patel</span>
+                                <span class="member-status"><i class="fas fa-circle"></i> Active</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar online">SK</div>
+                            <div class="member-info">
+                                <span class="member-name">Sana Khan</span>
+                                <span class="member-status"><i class="fas fa-circle"></i> Active</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar online">RV</div>
+                            <div class="member-info">
+                                <span class="member-name">Riya Verma</span>
+                                <span class="member-status"><i class="fas fa-circle"></i> Active</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar online">NG</div>
+                            <div class="member-info">
+                                <span class="member-name">Neha Gupta</span>
+                                <span class="member-status"><i class="fas fa-circle"></i> Active</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar away">MR</div>
+                            <div class="member-info">
+                                <span class="member-name">Meera Reddy</span>
+                                <span class="member-status away"><i class="fas fa-circle"></i> Away</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart"></i>
+                        <span>Naari Care</span>
+                    </div>
+                    <p>Empowering women through personalized health and wellness solutions.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="nutrition.html">Nutrition Guide</a></li>
+                        <li><a href="mental-wellness.html">Mental Wellness</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates and wellness tips</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Naari Care. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/community.js"></script>
+</body>
+</html>

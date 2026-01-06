@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition & Health - Naari Care</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-hindi">नारी</span> Care
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="features.html">Features</a>
+                    <a href="nutrition.html" class="active">Nutrition & Health</a>
+                    <a href="mental-wellness.html">Mental Wellness</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-login">Login / Sign Up</button>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero nutrition-hero">
+        <div class="container">
+            <h1>Nutrition & Health Guides</h1>
+            <p>Personalized nutrition recommendations for every phase of your journey.</p>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="nutrition-search">
+        <div class="container">
+            <div class="search-bar">
+                <input type="text" id="nutritionSearch" placeholder="Search for foods, nutrients, or health tips...">
+                <button class="btn btn-primary">Search</button>
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-phase="all">All</button>
+                <button class="filter-tab" data-phase="period">Period</button>
+                <button class="filter-tab" data-phase="pregnancy">Pregnancy</button>
+                <button class="filter-tab" data-phase="postpartum">Postpartum</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition Cards Section -->
+    <section class="nutrition-cards">
+        <div class="container">
+            <div class="section-actions">
+                <h2>Recommended Nutrition Plans</h2>
+                <button class="btn btn-outline"><i class="fas fa-download"></i> Download Plan as PDF</button>
+            </div>
+
+            <!-- Period Phase -->
+            <div class="nutrition-category" data-category="period">
+                <h3 class="category-title"><i class="fas fa-tint"></i> During Your Period</h3>
+                <div class="cards-grid">
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-leaf"></i></span>
+                            <h4>Leafy Greens</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> Rich in iron to combat fatigue and replenish blood loss.</p>
+                            <p><strong>Recommended:</strong> Spinach, kale, broccoli</p>
+                            <p><strong>Serving:</strong> 2-3 cups daily</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Iron</span>
+                            <span class="nutrient-tag">Calcium</span>
+                            <span class="nutrient-tag">Fiber</span>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-candy-cane"></i></span>
+                            <h4>Dark Chocolate</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> Reduces cramps and improves mood through magnesium.</p>
+                            <p><strong>Recommended:</strong> 70% cocoa or higher</p>
+                            <p><strong>Serving:</strong> 1-2 small squares</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Magnesium</span>
+                            <span class="nutrient-tag">Antioxidants</span>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-seedling"></i></span>
+                            <h4>Nuts & Seeds</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> Omega-3 fatty acids reduce inflammation and pain.</p>
+                            <p><strong>Recommended:</strong> Almonds, walnuts, flaxseeds</p>
+                            <p><strong>Serving:</strong> 1 handful daily</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Omega-3</span>
+                            <span class="nutrient-tag">Vitamin E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pregnancy Phase -->
+            <div class="nutrition-category" data-category="pregnancy">
+                <h3 class="category-title"><i class="fas fa-baby-carriage"></i> During Pregnancy</h3>
+                <div class="cards-grid">
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-egg"></i></span>
+                            <h4>Eggs</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> High-quality protein and choline for baby's brain development.</p>
+                            <p><strong>Recommended:</strong> Fully cooked eggs</p>
+                            <p><strong>Serving:</strong> 1-2 eggs daily</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Protein</span>
+                            <span class="nutrient-tag">Choline</span>
+                            <span class="nutrient-tag">Vitamin D</span>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-glass-whiskey"></i></span>
+                            <h4>Dairy Products</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> Essential calcium for bone development.</p>
+                            <p><strong>Recommended:</strong> Milk, yogurt, paneer</p>
+                            <p><strong>Serving:</strong> 3-4 servings daily</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Calcium</span>
+                            <span class="nutrient-tag">Protein</span>
+                            <span class="nutrient-tag">Vitamin B12</span>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-lemon"></i></span>
+                            <h4>Avocado</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> Folate prevents neural tube defects.</p>
+                            <p><strong>Recommended:</strong> Fresh avocado</p>
+                            <p><strong>Serving:</strong> 1/2 avocado daily</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Folate</span>
+                            <span class="nutrient-tag">Healthy Fats</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Postpartum Phase -->
+            <div class="nutrition-category" data-category="postpartum">
+                <h3 class="category-title"><i class="fas fa-heart"></i> Postpartum Care</h3>
+                <div class="cards-grid">
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-fish"></i></span>
+                            <h4>Fatty Fish</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> DHA supports baby's brain development through breast milk.</p>
+                            <p><strong>Recommended:</strong> Salmon, sardines (low mercury)</p>
+                            <p><strong>Serving:</strong> 2-3 times per week</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">DHA</span>
+                            <span class="nutrient-tag">Omega-3</span>
+                            <span class="nutrient-tag">Protein</span>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-bread-slice"></i></span>
+                            <h4>Whole Grains</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> Sustained energy and improved milk production.</p>
+                            <p><strong>Recommended:</strong> Oats, quinoa, brown rice</p>
+                            <p><strong>Serving:</strong> 3-4 servings daily</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Fiber</span>
+                            <span class="nutrient-tag">B Vitamins</span>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-header">
+                            <span class="food-icon"><i class="fas fa-tint"></i></span>
+                            <h4>Hydration</h4>
+                        </div>
+                        <div class="nutrition-info">
+                            <p><strong>Benefits:</strong> Essential for milk production and recovery.</p>
+                            <p><strong>Recommended:</strong> Water, coconut water, herbal teas</p>
+                            <p><strong>Serving:</strong> 10-12 glasses daily</p>
+                        </div>
+                        <div class="nutrients">
+                            <span class="nutrient-tag">Electrolytes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="nutrition-tips">
+        <div class="container">
+            <h2>Quick Nutrition Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-card" data-aos="flip-up" data-aos-delay="100">
+                    <span class="tip-icon"><i class="fas fa-pills"></i></span>
+                    <h4>Supplements</h4>
+                    <p>Consult your doctor about iron, folic acid, and vitamin D supplements.</p>
+                </div>
+                <div class="tip-card" data-aos="flip-up" data-aos-delay="200">
+                    <span class="tip-icon"><i class="fas fa-ban"></i></span>
+                    <h4>Avoid</h4>
+                    <p>Limit caffeine, processed foods, and excessive sugar intake.</p>
+                </div>
+                <div class="tip-card" data-aos="flip-up" data-aos-delay="300">
+                    <span class="tip-icon"><i class="fas fa-balance-scale"></i></span>
+                    <h4>Balance</h4>
+                    <p>Eat a variety of colorful fruits and vegetables daily.</p>
+                </div>
+                <div class="tip-card" data-aos="flip-up" data-aos-delay="400">
+                    <span class="tip-icon"><i class="fas fa-clock"></i></span>
+                    <h4>Timing</h4>
+                    <p>Eat small, frequent meals to maintain energy levels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><span class="logo-hindi">नारी</span> Care</h3>
+                    <p>Your personal wellness companion for every phase of womanhood. We believe in empowering women through knowledge and care.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Nutrition Guides</a></li>
+                        <li><a href="#">Pregnancy Tips</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>support@naaricare.com</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Naari Care. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true
+        });
+    </script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/images-config.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/nutrition.js"></script>
+</body>
+</html>

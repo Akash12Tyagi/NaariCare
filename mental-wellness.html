@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Wellness - Naari Care</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-hindi">नारी</span> Care
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="features.html">Features</a>
+                    <a href="nutrition.html">Nutrition & Health</a>
+                    <a href="mental-wellness.html" class="active">Mental Wellness</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-login">Login / Sign Up</button>
+                    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero wellness-hero">
+        <div class="container">
+            <h1>Your Mental Wellness Matters</h1>
+            <p>A safe space to nurture your mind, track your emotions, and find balance.</p>
+        </div>
+    </section>
+
+    
+
+    <!-- AI Chatbot Section -->
+    <section class="chatbot-section">
+        <div class="container">
+            <div class="section-header centered">
+                <h2>Talk to Naari AI</h2>
+                <p>24/7 emotional support powered by AI. Your conversations are private and secure.</p>
+            </div>
+            <div class="chatbot-interface" >
+                <div class="chat-window">
+                    <div class="chat-header">
+                        <div class="bot-avatar"><i class="fas fa-robot"></i></div>
+                        <div class="bot-info">
+                            <h4>Naari AI</h4>
+                            <span class="status">● Online</span>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                            <div class="message-content">
+                                <p>Hello! I'm Naari AI, your personal wellness companion. How are you feeling today?</p>
+                                <span class="message-time">Just now</span>
+                            </div>
+                        </div>
+                        <div class="quick-replies">
+                            <button class="quick-reply"><i class="fas fa-smile"></i> I'm feeling good</button>
+                            <button class="quick-reply"><i class="fas fa-frown"></i> I'm feeling down</button>
+                            <button class="quick-reply"><i class="fas fa-sad-tear"></i> I'm anxious</button>
+                            <button class="quick-reply"><i class="fas fa-tired"></i> I'm stressed</button>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your message..." id="chatInput">
+                        <button class="send-btn" id="send-btn">Send</button>
+                    </div>
+                </div>
+                <div class="chatbot-features">
+                    <h3>What I can help with:</h3>
+                    <ul>
+                        <li><i class="fas fa-comments"></i> <strong>Active Listening:</strong> Share your thoughts without judgment</li>
+                        <li><i class="fas fa-brain"></i> <strong>Mood Analysis:</strong> Understand your emotional patterns</li>
+                        <li><i class="fas fa-spa"></i> <strong>Coping Strategies:</strong> Get personalized techniques for stress</li>
+                        <li><i class="fas fa-book-reader"></i> <strong>Resources:</strong> Access articles and expert advice</li>
+                        <li><i class="fas fa-lock"></i> <strong>Privacy:</strong> Your conversations are completely confidential</li>
+                    </ul>
+                    <p class="disclaimer">Note: Naari AI provides support but is not a replacement for professional therapy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Mindful Activities Section -->
+    <section class="mindful-activities">
+        <div class="container">
+            <div class="section-header centered">
+                <h2>Mindful Activities</h2>
+                <p>Practice self-care with guided exercises designed for busy women.</p>
+            </div>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fas fa-wind"></i></div>
+                    <h3>Breathing Exercises</h3>
+                    <p>Calm your mind with simple breathing techniques</p>
+                    <div class="breathing-demo">
+                        <div class="breath-circle" id="breathCircle">
+                            <span id="breathText">Breathe In</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline" onclick="startBreathing()">Start Exercise</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fas fa-pen-fancy"></i></div>
+                    <h3>Journaling Prompts</h3>
+                    <p>Reflect and express your thoughts through writing</p>
+                    <div class="prompt-box">
+                        <p class="prompt-text" id="journalPrompt">"What made you smile today?"</p>
+                        <button class="btn btn-outline" onclick="newPrompt()">New Prompt</button>
+                    </div>
+                    <button class="btn btn-outline">Start Journaling</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon"><i class="fas fa-user-zen"></i></div>
+                    <h3>Guided Meditation</h3>
+                    <p>Find inner peace with audio-guided sessions</p>
+                    <div class="meditation-options">
+                        <div class="meditation-item">
+                            <span><i class="fas fa-sunrise"></i> Morning Clarity</span>
+                            <span class="duration">5 min</span>
+                        </div>
+                        <div class="meditation-item">
+                            <span><i class="fas fa-moon"></i> Sleep Better</span>
+                            <span class="duration">10 min</span>
+                        </div>
+                        <div class="meditation-item">
+                            <span><i class="fas fa-leaf"></i> Stress Relief</span>
+                            <span class="duration">7 min</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline">Browse All</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="wellness-articles">
+        <div class="container">
+            <div class="section-header centered">
+                <h2>Articles for Balance</h2>
+                <p>Expert insights on mental health, self-care, and emotional wellness.</p>
+            </div>
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">
+                        <div class="article-category">Mental Health</div>
+                    </div>
+                    <div class="article-content">
+                        <h3>Managing Anxiety During Pregnancy</h3>
+                        <p>Learn effective techniques to reduce worry and embrace your pregnancy journey with confidence.</p>
+                        <div class="article-meta">
+                            <span><i class="fas fa-book-open"></i> 5 min read</span>
+                            <span>Dr. Anjali Mehta</span>
+                        </div>
+                        <button class="btn btn-text">Read More →</button>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">
+                        <div class="article-category">Self-Care</div>
+                    </div>
+                    <div class="article-content">
+                        <h3>The Power of Daily Affirmations</h3>
+                        <p>Discover how positive self-talk can transform your mindset and boost your emotional wellbeing.</p>
+                        <div class="article-meta">
+                            <span><i class="fas fa-book-open"></i> 4 min read</span>
+                            <span>Priya Sharma</span>
+                        </div>
+                        <button class="btn btn-text">Read More →</button>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">
+                        <div class="article-category">Mindfulness</div>
+                    </div>
+                    <div class="article-content">
+                        <h3>Postpartum Mental Health: You're Not Alone</h3>
+                        <p>Understanding postpartum emotions and finding support during this transformative phase.</p>
+                        <div class="article-meta">
+                            <span><i class="fas fa-book-open"></i> 7 min read</span>
+                            <span>Dr. Kavita Reddy</span>
+                        </div>
+                        <button class="btn btn-text">Read More →</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mood Tracker Section -->
+    <section class="mood-tracker">
+        <div class="container">
+            <div class="mood-tracker-content">
+                <div class="mood-tracker-text">
+                    <h2>Track Your Mood Journey</h2>
+                    <p>Understanding your emotional patterns is the first step to better mental health. Log your daily mood and discover insights about what influences your wellbeing.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-chart-pie"></i> Visual mood analytics</li>
+                        <li><i class="fas fa-search"></i> Identify emotional triggers</li>
+                        <li><i class="fas fa-chart-line"></i> Track progress over time</li>
+                        <li><i class="fas fa-lightbulb"></i> Get personalized recommendations</li>
+                    </ul>
+                    <button class="btn btn-primary">Start Tracking</button>
+                </div>
+                <div class="mood-tracker-visual">
+                    <div class="mood-options">
+                        <div class="mood-option"><i class="fas fa-laugh-beam"></i></div>
+                        <div class="mood-option"><i class="fas fa-smile"></i></div>
+                        <div class="mood-option"><i class="fas fa-meh"></i></div>
+                        <div class="mood-option"><i class="fas fa-frown"></i></div>
+                        <div class="mood-option"><i class="fas fa-sad-cry"></i></div>
+                    </div>
+                    <div class="mood-graph">
+                        <div class="graph-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><span class="logo-hindi">नारी</span> Care</h3>
+                    <p>Your personal wellness companion for every phase of womanhood. We believe in empowering women through knowledge and care.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Nutrition Guides</a></li>
+                        <li><a href="#">Pregnancy Tips</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>support@naaricare.com</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Naari Care. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library -->
+    <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/images-config.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script src="js/config.js"></script>
+    <script type="module" src="js/mental-wellness.js"></script>
+</body>
+</html> -->
+
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true,
+            offset: 100
+        });
+    </script>
+    
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/mental-wellness.js"></script>
+    
+</body>
+</html>

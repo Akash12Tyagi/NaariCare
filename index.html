@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naari Care - Your Personal Wellness Companion</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script type="module" src="firebaseauth.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-hindi">नारी</span> Care
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="features.html">Features</a>
+                    <a href="nutrition.html">Nutrition & Health</a>
+                    <a href="mental-wellness.html">Mental Wellness</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-login">Login / Sign Up</button>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Your Personal Wellness Companion — From Periods to Parenthood.</h1>
+                    <p class="hero-subtitle">Track, Learn, and Care — All in one place, for every phase of womanhood.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary">Get Started</button>
+                        <button class="btn btn-outline">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/hero-illustration.svg" alt="Woman using health app" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>A Feature for Every Need</h2>
+                <p>Empowering you with tools that understand and adapt to your body's needs.</p>
+            </div>
+            <div class="feature-cards">
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Cycle Tracker</h3>
+                    <p>Smart predictions, personalized insights, and timely reminders to keep you in sync with your cycle.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon"><i class="fas fa-baby-carriage"></i></div>
+                    <h3>Pregnancy Care</h3>
+                    <p>Week-by-week guidance, nutrition plans, and safety tips for a healthy and happy pregnancy journey.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon"><i class="fas fa-spa"></i></div>
+                    <h3>Mental Wellness</h3>
+                    <p>AI-based emotional health support, guided meditations, and a safe space to nurture your mind.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>Get Started in 3 Simple Steps</h2>
+            <div class="steps">
+                <div class="step" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up & Share</h3>
+                    <p>Create your profile and tell us about your current phase and goals.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="step-number">2</div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Our smart algorithm analyzes your needs to create a personalized plan.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="step-number">3</div>
+                    <h3>Get Daily Insights</h3>
+                    <p>Receive daily tips, articles, and wellness insights tailored just for you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Trusted by Women Who Care for Themselves</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/user1.jpg" alt="Priya Sharma" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%2230%22 fill=%22%236366F1%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22%3EP%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <p class="testimonial-text">"Naari Care has been a game-changer for my PCOS management. The predictions are so accurate!"</p>
+                    <p class="testimonial-name">- Priya Sharma</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/user2.jpg" alt="Aisha Khan" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%2230%22 fill=%22%238B5CF6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22%3EA%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <p class="testimonial-text">"The pregnancy guide was my constant companion. I felt so supported and informed throughout my journey."</p>
+                    <p class="testimonial-name">- Aisha Khan</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/user3.jpg" alt="Ananya Reddy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%2230%22 fill=%22%2306B6D4%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22%3EA%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <p class="testimonial-text">"The mental wellness features are incredible. The AI chatbot feels like talking to a supportive friend."</p>
+                    <p class="testimonial-name">- Ananya Reddy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Start your wellness journey today.</h2>
+            <p>Download the app and join a community of women dedicated to holistic health and empowerment.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Download App</button>
+                <button class="btn btn-secondary">Join Community</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><span class="logo-hindi">नारी</span> Care</h3>
+                    <p>Your personal wellness companion for every phase of womanhood. We believe in empowering women through knowledge and care.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Nutrition Guides</a></li>
+                        <li><a href="#">Pregnancy Tips</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>support@naaricare.com</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Naari Care. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Community Chat Modal -->
+    <div id="communityModal" class="modal">
+        <div class="modal-content community-chat">
+            <div class="modal-header">
+                <h2><i class="fas fa-users"></i> Naari Care Community</h2>
+                <button class="modal-close" id="closeCommunity">&times;</button>
+            </div>
+            <div class="modal-subtitle" style="padding: 0 24px; margin-bottom: 0;">
+                <span style="color: var(--primary-color); font-weight: 600;">✨ Demo Preview</span> - 
+                Experience our supportive community space
+                <a href="community.html" style="color: var(--primary-color); text-decoration: underline; margin-left: 8px;">Visit Full Community →</a>
+            </div>
+            <div class="community-tabs">
+                <button class="community-tab active" data-channel="general">
+                    <i class="fas fa-comments"></i> General Chat
+                </button>
+                <button class="community-tab" data-channel="pregnancy">
+                    <i class="fas fa-baby"></i> Pregnancy
+                </button>
+                <button class="community-tab" data-channel="wellness">
+                    <i class="fas fa-spa"></i> Wellness
+                </button>
+            </div>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here -->
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Share your thoughts with the community..." class="chat-input">
+                    <button id="sendMessage" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login/Signup Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content login-modal">
+            <div class="modal-header">
+                <h2 id="authTitle">Welcome to Naari Care</h2>
+                <button class="modal-close" id="closeLogin">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-subtitle" id="authSubtitle">Join thousands of women on their wellness journey</p>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form" method="post" action="">
+                    <div id="signInMessage" class="messageDiv" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" id="submitSignIn" class="btn btn-primary full-width">Sign In</button>
+                </form>
+                
+                <!-- Signup Form (Hidden by default) -->
+                <form id="signupForm" class="auth-form" style="display: none;" method="post" action="">
+                    <div id="signUpMessage" class="messageDiv" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" required placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" required placeholder="Min. 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" required placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" id="submitSignUp" class="btn btn-primary full-width">Create Account</button>
+                </form>
+                
+                <p class="auth-switch">
+                    <span id="switchText">Don't have an account?</span> 
+                    <a href="#" id="switchAuth">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download App Modal -->
+    <div id="downloadModal" class="modal">
+        <div class="modal-content download-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-mobile-alt"></i> Download Naari Care</h2>
+                <button class="modal-close" id="closeDownload">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-subtitle">Coming soon to your favorite platforms</p>
+                <div class="download-options">
+                    <button class="download-btn" disabled>
+                        <i class="fab fa-apple"></i>
+                        <div>
+                            <small>Download on the</small>
+                            <strong>App Store</strong>
+                        </div>
+                    </button>
+                    <button class="download-btn" disabled>
+                        <i class="fab fa-google-play"></i>
+                        <div>
+                            <small>Get it on</small>
+                            <strong>Google Play</strong>
+                        </div>
+                    </button>
+                </div>
+                <p class="coming-soon-text"><i class="fas fa-clock"></i> Launching Soon! Sign up to get notified.</p>
+                <div class="notify-form">
+                    <input type="email" placeholder="Enter your email" id="notifyEmail">
+                    <button class="btn btn-primary" id="notifyMe">Notify Me</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="js/config.js"></script>
+    <script src="js/config.local.js"></script>
+    <script src="js/mental-wellness.js"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="gradFavicon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#gradFavicon)"/>
+  
+  <!-- Heart shape -->
+  <path d="M50 75 C35 65, 25 55, 25 42 C25 32, 32 25, 42 25 C46 25, 48 27, 50 30 C52 27, 54 25, 58 25 C68 25, 75 32, 75 42 C75 55, 65 65, 50 75 Z" 
+        fill="white" opacity="0.95"/>
+  
+  <!-- Small decorative elements -->
+  <circle cx="35" cy="35" r="2" fill="white" opacity="0.7"/>
+  <circle cx="65" cy="35" r="2" fill="white" opacity="0.7"/>
+  <circle cx="50" cy="25" r="1.5" fill="white" opacity="0.6"/>
+</svg>
