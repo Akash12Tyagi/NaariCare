@@ -29,8 +29,10 @@
                     <a href="features.html">Features</a>
                     <a href="nutrition.html">Nutrition & Health</a>
                     <a href="mental-wellness.html">Mental Wellness</a>
+                    <a href="community.html">Community</a>
                     <a href="about.html">About</a>
                     <a href="contact.html">Contact</a>
+                    
                 </div>
                 <div class="nav-actions">
                     <button class="btn-login">Login / Sign Up</button>
@@ -88,7 +90,7 @@
         </div>
     </section>
 
-    <!-- How It Works Section -->
+    <!-- How to get started section-->
     <section class="how-it-works">
         <div class="container">
             <h2>Get Started in 3 Simple Steps</h2>
@@ -113,6 +115,8 @@
             </div>
         </div>
     </section>
+
+ 
 
     <!-- Testimonials Section -->
     <section class="testimonials">
@@ -150,8 +154,8 @@
             <h2>Start your wellness journey today.</h2>
             <p>Download the app and join a community of women dedicated to holistic health and empowerment.</p>
             <div class="cta-buttons">
-                <button class="btn btn-primary">Download App</button>
-                <button class="btn btn-secondary">Join Community</button>
+                <button id="downloadBtn" class="btn btn-primary">Download App</button>
+                <a href="community.html" class="btn btn-secondary">Join Community</a>
             </div>
         </div>
     </section>
@@ -321,8 +325,32 @@
         </div>
     </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const downloadBtn = document.getElementById("downloadBtn");
+  const downloadModal = document.getElementById("downloadModal");
+  const closeDownload = document.getElementById("closeDownload");
+  const modalContent = downloadModal.querySelector(".modal-content");
 
+  downloadBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    downloadModal.style.display = "flex";
+  });
 
+  closeDownload.addEventListener("click", function () {
+    downloadModal.style.display = "none";
+  });
+
+  // Close ONLY if clicking outside modal box
+  downloadModal.addEventListener("click", function (e) {
+    if (!modalContent.contains(e.target)) {
+      downloadModal.style.display = "none";
+    }
+  });
+});
+</script>
+    
 
     <script src="js/config.js"></script>
     <script src="js/config.local.js"></script>

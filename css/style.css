@@ -1638,6 +1638,34 @@ section {
     color: var(--text-secondary);
 }
 
+.revenue{
+    background-color: var(--card-bg);
+    padding: 50px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    align-items: center;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.revenue h2{
+    text-align: center;
+}
+
+.revenue h5{
+    text-align: center;
+    color: #8688ff;
+}
+
+.revenue ul{
+    list-style: none;
+}
+
+.revenue li{
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+}
+
 .team {
     background-color: var(--background);
     padding: 60px 0;

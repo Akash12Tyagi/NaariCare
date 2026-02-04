@@ -467,16 +467,20 @@ const modalManager = {
             });
         }
     });
-    const joinCommunityBtns = document.querySelectorAll('.btn-primary');
-    joinCommunityBtns.forEach(btn => {
-        if (btn.textContent.trim() === 'Join Community') {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.openModal(this.communityModal);
-                this.loadCommunityMessages('general');
-            });
-        }
-    });
+const joinCommunityBtns = document.querySelectorAll('.btn-primary');
+joinCommunityBtns.forEach(btn => {
+    if (btn.textContent.trim() === 'Join Community') {
+        // Remove any existing click handlers
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        
+        // Add new handler to redirect to community.html
+        newBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'community.html';
+        });
+    }
+});
 },
     
     setupCloseButtons() {
@@ -763,25 +767,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Update Join Community Button to open community modal
 document.addEventListener('DOMContentLoaded', () => {
-    const joinCommunityBtns = document.querySelectorAll('.btn-primary');
+    const joinCommunityBtns = document.querySelectorAll('.btn-primary, .btn-secondary');
     joinCommunityBtns.forEach(btn => {
         if (btn.textContent.trim() === 'Join Community') {
-            // Remove the old event listener by cloning the node
+            // Remove any existing event listeners by cloning
             const newBtn = btn.cloneNode(true);
             btn.parentNode.replaceChild(newBtn, btn);
             
-            // Add new event listener that opens community modal
+            // Add redirect to community.html
             newBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (modalManager && modalManager.communityModal) {
-                    modalManager.openModal(modalManager.communityModal);
-                    modalManager.loadCommunityMessages('general');
-                }
+                window.location.href = 'community.html';
             });
         }
     });
 });
-
 
 
 
