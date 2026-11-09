@@ -24,7 +24,8 @@ Then open http://localhost:8080. Use a desktop Chrome, Edge or Safari with hardw
 | 4–6 | **4K / QLED / OLED** | The screen wipes between modes: a 4K zoom down to RGB sub-pixels, QLED quantum-dot shimmer, and an OLED true-black nebula. Floor light changes colour with each. |
 | 7 | **Smart** | An animated Android-style home launcher on the TV. |
 | 8 | **Infinite showroom** | Inspired by midnightvideo.cuchillo.rocks: an endless corridor of Onfinity screens (IFPDs, LED walls, kiosks, VC, command centres…) showing the client's real photography. Scroll or drag to walk, click a screen for details. Bloom plus a CRT pass (scanlines, aberration, noise, barrel). |
-| 9 | **Shop** | Series tabs, size chips, specs, animated price + EMI, a true-scale "see it on your wall" preview, add to cart with a cart drawer (kept in localStorage). |
+| 9 | **Shop** | Series tabs, size chips, specs, animated price and EMI, add to cart with a cart drawer (kept in localStorage). |
+| 9b | **See it in your room (3D)** | A true-to-scale 3D living room: the selected TV, sized from its real 16:9 diagonal, is wall-mounted on a walnut-slat feature wall above a media console, with a sofa at the visitor's chosen viewing distance (slider, 1.5–4.5 m), a rug, a coffee table, a plant, a floor lamp and a 1.75 m person for scale. The screen lights the room (area light plus wall glow). Day/Night toggle, Room / From the sofa / Side camera views, drag to orbit. Live readout of W×H, field of view and fit (SMPTE 30° / THX 40° guidance), plus a recommended size for your distance with a one-tap "Try 75″". |
 | 10 | **Solutions** | Pinned horizontal gallery: Education, Enterprise, Healthcare, Govt & Smart City, Retail, BFSI, Defence. |
 | 11 | **Built for Bharat** | Ethos (Right product · Reasonable price · Reliable service), counters, Make in India. |
 | 12 | **Clients, contact, footer** | Velocity-reactive logo marquee, experience centres, book-a-demo form, giant wordmark. |
@@ -51,6 +52,7 @@ css/style.css          design tokens + all styles
 js/main.js             loader, scroll, cursor, configurator, cart, modal, sections
 js/tv-scene.js         hero TV model, screen shaders, scroll choreography
 js/corridor-scene.js   infinite showroom
+js/room-scene.js       true-scale 3D living-room preview
 js/data.js             products, showroom items, solutions, copy
 vendor/                three.js r170, GSAP 3.12.5 + ScrollTrigger, Lenis 1.1.18 (vendored, no CDN)
 assets/img, assets/clients

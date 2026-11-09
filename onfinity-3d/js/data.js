@@ -8,6 +8,7 @@ const IMG = 'assets/img/';
 export const SERIES = [
   {
     id: 'smart',
+    screen: 'hummingbird',
     tab: 'Smart 4K',
     name: 'Onfinity Smart 4K LED TV',
     desc: 'Brilliant detail, vibrant colour and smart connectivity. Powered by Android with YouTube, Netflix and Prime Video pre-loaded.',
@@ -26,6 +27,7 @@ export const SERIES = [
   },
   {
     id: 'qled',
+    screen: 'flower',
     tab: 'QLED',
     name: 'Onfinity QLED Smart TV',
     desc: 'Brighter screens and vibrant quantum-dot colour, ideal for well-lit rooms where bold, clear visuals matter.',
@@ -44,6 +46,7 @@ export const SERIES = [
   },
   {
     id: 'oled',
+    screen: 'flower',
     tab: 'OLED',
     name: 'Onfinity OLED TV',
     desc: 'Deep blacks and high contrast from self-lit pixels. Best suited to premium viewing with sharp, detailed picture quality.',
@@ -62,6 +65,7 @@ export const SERIES = [
   },
   {
     id: 'pro',
+    screen: 'hummingbird',
     tab: 'Large format',
     name: 'Onfinity 4K Large Format',
     desc: 'Big-screen 4K for home theatres, boardrooms and lobbies, in sizes up to 98 inches.',

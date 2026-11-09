@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { SERIES, SHOWROOM, SOLUTIONS, CLIENTS, LOADER_LINES, inr } from './data.js';
 import { createTVStory } from './tv-scene.js';
 import { createCorridor } from './corridor-scene.js';
+import { createRoomPreview, tvDims } from './room-scene.js';
 
 const { gsap, ScrollTrigger, Lenis } = window;
 gsap.registerPlugin(ScrollTrigger);
@@ -246,6 +247,61 @@ $$('.chapter .panel').forEach((el) => {
   });
 });
 
+
+/* ============================================================== 3D room */
+const room = createRoomPreview({
+  canvas: $('#roomCanvas'), manager, reduced,
+  screens: { hummingbird: 'assets/img/screen-hummingbird.jpg', flower: 'assets/img/screen-flower.jpg' },
+});
+const distRange = $('#distRange');
+let roomDist = +distRange.value;
+const fovOf = (inch, d) => (2 * Math.atan(tvDims(inch).w / 2 / d) * 180) / Math.PI;
+function recommendFor(d, sizes) {
+  // ~33 deg horizontal field of view: between SMPTE (30) and THX (40) cinema guidance
+  const ideal = (2 * d * Math.tan((33 / 2) * Math.PI / 180)) / 0.8716 / 0.0254;
+  return sizes.reduce((a, b) => (Math.abs(b - ideal) < Math.abs(a - ideal) ? b : a));
+}
+function updateRoomReadout() {
+  const sz = cfg.size, d = roomDist;
+  const { w, h } = tvDims(sz);
+  const fov = fovOf(sz, d);
+  $('#rdSize').textContent = sz + '″';
+  $('#rdDims').textContent = `${w.toFixed(2)}×${h.toFixed(2)} m`;
+  $('#rdFov').textContent = Math.round(fov) + '°';
+  const fit = $('#rdFit');
+  fit.className = 'fit' + (fov < 24 ? ' small' : fov > 42 ? ' big' : '');
+  fit.querySelector('em').textContent = fov < 24 ? 'Feels small from this distance' : fov > 42 ? 'Very immersive — consider sitting further back' : 'Perfect fit — cinema-like immersion';
+  $('#distVal').textContent = d.toFixed(1) + ' m';
+  distRange.style.setProperty('--p', ((d - 1.5) / 3) * 100 + '%');
+  const rec = recommendFor(d, cfg.series.sizes);
+  const btn = $('#recoBtn');
+  if (rec === sz) {
+    $('#recoText').textContent = `At ${d.toFixed(1)} m, the ${sz}″ is the best fit in this series.`;
+    btn.hidden = true;
+  } else {
+    $('#recoText').textContent = `At ${d.toFixed(1)} m, we'd suggest the ${rec}″ ${cfg.series.tab}.`;
+    btn.hidden = false;
+    btn.querySelector('span').textContent = `Try ${rec}″`;
+    btn.dataset.size = rec;
+  }
+}
+distRange.addEventListener('input', () => { roomDist = +distRange.value; room.setDistance(roomDist); updateRoomReadout(); });
+$('#recoBtn').addEventListener('click', (e) => { cfg.size = +e.currentTarget.dataset.size; updateSize(); sound.tick(); });
+$$('.seg [data-view]').forEach((b) => b.addEventListener('click', () => {
+  $$('.seg [data-view]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  room.setView(b.dataset.view);
+  $('#roomHint').textContent = b.dataset.view === 'sofa' ? 'Your view from the sofa' : 'Drag to look around';
+  sound.tick();
+}));
+$('#roomNight').addEventListener('click', (e) => {
+  const on = e.currentTarget.getAttribute('aria-pressed') !== 'true';
+  e.currentTarget.setAttribute('aria-pressed', String(on));
+  e.currentTarget.querySelector('span').textContent = on ? 'Day' : 'Night';
+  room.setNight(on);
+  sound.tick();
+});
+if (!finePointer) $('#roomHint').textContent = 'Switch views above';
+
 /* ============================================================== configurator */
 const tabs = $('#seriesTabs'), chips = $('#sizeChips');
 const cfg = { series: SERIES[1], size: 55 };
@@ -256,18 +312,6 @@ SERIES.forEach((s) => {
   tabs.appendChild(b);
 });
 
-const wallTv = $('#wallTv'), wallScr = $('#wallTvScreen'), wallLbl = $('#wallTvLabel');
-function drawWall(size) {
-  const M = 80, floorY = 240;
-  const w = size * 0.0254 * 0.8716 * M, h = size * 0.0254 * 0.4903 * M;
-  const bottom = floorY - 0.95 * M;
-  const x = 300 - w / 2, y = bottom - h;
-  gsap.to(wallTv, { attr: { x, y, width: w, height: h }, duration: 0.8, ease: 'expo.out' });
-  gsap.to(wallScr, { attr: { x: x + 1.5, y: y + 1.5, width: w - 3, height: h - 3 }, duration: 0.8, ease: 'expo.out' });
-  gsap.to(wallLbl, { attr: { x: 300, y: y + h / 2 + 5 }, duration: 0.8, ease: 'expo.out' });
-  wallLbl.textContent = `${size}″ · ${(size * 0.0254 * 1.2).toFixed(1)} m away`;
-}
-
 function selectSeries(s) {
   cfg.series = s;
   if (!s.sizes.includes(cfg.size)) cfg.size = s.sizes.reduce((a, b) => (Math.abs(b - 55) < Math.abs(a - 55) ? b : a));
@@ -277,6 +321,7 @@ function selectSeries(s) {
     img.classList.add('swap');
     setTimeout(() => { img.src = s.image; img.alt = s.name; img.onload = () => img.classList.remove('swap'); }, 300);
   }
+  room.setScreen(s.screen);
   $('#cfgName').textContent = s.name;
   $('#cfgDesc').textContent = s.desc;
   chips.innerHTML = '';
@@ -299,7 +344,8 @@ function updateSize() {
   gsap.to(from, { v: price, duration: 0.8, ease: 'power3.out', onUpdate: () => { pe.textContent = inr(Math.round(from.v)); } });
   pe.dataset.v = price;
   $('#cfgEmi').textContent = `No-cost EMI from ${inr(Math.round(price / 12))}/month`;
-  drawWall(sz);
+  room.setSize(sz);
+  updateRoomReadout();
 }
 selectSeries(cfg.series);
 
