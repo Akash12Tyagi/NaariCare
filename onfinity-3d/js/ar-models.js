@@ -12,7 +12,9 @@ export const TV_SIZES = [32, 43, 55, 65, 75, 86, 98];
 
 // Catalogue. `group` lets the viewer offer sizes of the same product.
 export const AR_ITEMS = [
-  ...TV_SIZES.map((s) => ({ id: `tv-${s}`, group: 'tv', size: s, name: `Onfinity Smart 4K TV · ${s}″`, placement: 'wall', allowFloor: false })),
+  ...TV_SIZES.map((s) => ({ id: `tv-${s}`, group: 'tv', size: s, alt: `tv-${s}-stand`, name: `Onfinity Smart 4K TV · ${s}″`, placement: 'wall' })),
+  // same TVs on their blade feet — for a console/table (floor detection is far more reliable than walls)
+  ...TV_SIZES.map((s) => ({ id: `tv-${s}-stand`, group: 'tv-stand', size: s, alt: `tv-${s}`, name: `Onfinity Smart 4K TV · ${s}″ on stand`, placement: 'floor' })),
   { id: 'ifpd-75', group: 'ifpd', size: 75, name: 'Onfinity Interactive Flat Panel · 75″', placement: 'wall' },
   { id: 'ifpd-86', group: 'ifpd', size: 86, name: 'Onfinity Interactive Flat Panel · 86″', placement: 'wall' },
   { id: 'display-55', group: 'display', size: 55, name: 'Onfinity Commercial Display · 55″', placement: 'wall' },
@@ -73,12 +75,16 @@ export function sanitize(root) {
 function panel({ inch, screen, bezel = 0.006, depth = 0.028, chin = 0, logo = true }) {
   const { w, h } = panelDims(inch);
   const g = new THREE.Group();
-  const metal = new THREE.MeshStandardMaterial({ color: 0x17191a, metalness: 0.8, roughness: 0.35 });
-  const backMat = new THREE.MeshStandardMaterial({ color: 0x0d0f10, metalness: 0.3, roughness: 0.6 });
+  const metal = new THREE.MeshStandardMaterial({ color: 0x2b2f33, metalness: 0.55, roughness: 0.38 });
+  const trimMat = new THREE.MeshStandardMaterial({ color: 0xa9aeb3, metalness: 0.9, roughness: 0.28 });
+  const backMat = new THREE.MeshStandardMaterial({ color: 0x24282c, metalness: 0.3, roughness: 0.55 });
   const W = w + bezel * 2, H = h + bezel * 2 + chin;
   const frame = new THREE.Mesh(new RoundedBoxGeometry(W, H, 0.012, 2, 0.004), metal);
   frame.position.set(0, H / 2, 0.006 + depth);
   g.add(frame);
+  const trim = new THREE.Mesh(new RoundedBoxGeometry(W + 0.008, H + 0.008, 0.008, 2, 0.004), trimMat);
+  trim.position.set(0, H / 2, 0.004 + depth);
+  g.add(trim);
   const back = new THREE.Mesh(new RoundedBoxGeometry(W * 0.72, H * 0.66, depth, 3, 0.01), backMat);
   back.position.set(0, H / 2 - H * 0.04, depth / 2);
   g.add(back);
@@ -134,6 +140,25 @@ function infoScreen() {
   });
 }
 
+// Blade feet like the real Onfinity TVs; lifts the panel 9 cm off the table.
+function withStand(tv, inch) {
+  const { w } = panelDims(inch);
+  const g = new THREE.Group();
+  tv.position.y = 0.09; g.add(tv);
+  const footMat = new THREE.MeshStandardMaterial({ color: 0x2b2f33, metalness: 0.6, roughness: 0.35 });
+  const blade = new RoundedBoxGeometry(0.022, 0.13, 0.014, 2, 0.005);
+  [-1, 1].forEach((s) => {
+    const foot = new THREE.Group();
+    const a = new THREE.Mesh(blade, footMat); a.rotation.x = 0.62; a.position.set(0, 0.053, 0.06);
+    const b = new THREE.Mesh(blade, footMat); b.rotation.x = -0.62; b.position.set(0, 0.053, -0.02);
+    foot.add(a, b);
+    foot.position.set(s * (w / 2 - Math.min(0.2, w * 0.12)), 0, 0);
+    foot.rotation.z = s * -0.1;
+    g.add(foot);
+  });
+  return g;
+}
+
 /* ---------------------------------------------------------------- product wrappers */
 function fromBuilder(id, loader, { scale = 1, pose = 0, rotateY = 0 } = {}) {
   const m = BUILDERS[id](loader);
@@ -149,6 +174,7 @@ export function buildAR(item, loader) {
   let obj;
   switch (item.group) {
     case 'tv': obj = panel({ inch: item.size, screen: load(loader, 'assets/img/screen-hummingbird.jpg'), chin: 0.006 }); break;
+    case 'tv-stand': obj = withStand(panel({ inch: item.size, screen: load(loader, 'assets/img/screen-hummingbird.jpg'), chin: 0.006 }), item.size); break;
     case 'ifpd': obj = panel({ inch: item.size, screen: ifpdScreen(), bezel: 0.022, depth: 0.09 }); break;
     case 'display': obj = panel({ inch: item.size, screen: load(loader, 'assets/products/menu-4.jpg'), bezel: 0.01, depth: 0.06 }); break;
     case 'display-info': obj = panel({ inch: item.size, screen: infoScreen(), bezel: 0.01, depth: 0.06 }); break;

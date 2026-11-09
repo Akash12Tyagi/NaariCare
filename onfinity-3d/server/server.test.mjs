@@ -80,6 +80,14 @@ test('events: validates and aggregates', async () => {
   assert.equal(s.placementRate, 1);
 });
 
+test('recent events expose device and AR mode for debugging', async () => {
+  await fetch(base + '/api/events', { method: 'POST', headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0 (Linux; Android 14; Pixel 7)' }, body: JSON.stringify({ type: 'ar_failed', model: 'tv-55', mode: 'scene-viewer/webxr' }) });
+  const { events } = await (await fetch(base + '/api/events/recent?limit=5')).json();
+  assert.equal(events[0].type, 'ar_failed');
+  assert.equal(events[0].mode, 'scene-viewer/webxr');
+  assert.equal(events[0].device, 'Android');
+});
+
 test('leads: validates input and stores', async () => {
   assert.equal((await post('/api/leads', { name: 'A', phone: '123' })).status, 422);
   const ok = await post('/api/leads', { name: 'Asha Verma', phone: '+91 98765 43210', city: 'Noida', interest: 'LED Video Wall', model: 'led' });
