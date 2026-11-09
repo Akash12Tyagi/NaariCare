@@ -220,24 +220,6 @@
             <img id="cfgImage" src="assets/img/render-qled.jpg" alt="Onfinity television" />
             <div class="cfg-image-glare"></div>
           </div>
-          <div class="wall" aria-label="Size preview on a wall">
-            <p class="wall-label">See it on your wall</p>
-            <svg viewBox="0 0 600 260" class="wall-svg" id="wallSvg">
-              <line x1="0" y1="240" x2="600" y2="240" class="w-floor" />
-              <g class="w-sofa" transform="translate(212 172) scale(0.5867 1.2143)">
-                <path d="M10 56 V22 Q10 10 22 10 H278 Q290 10 290 22 V56 Z" />
-                <rect x="0" y="30" width="22" height="26" rx="5" />
-                <rect x="278" y="30" width="22" height="26" rx="5" />
-              </g>
-              <rect id="wallTv" x="250" y="100" width="100" height="56" rx="1.5" class="w-tv" />
-              <rect id="wallTvScreen" x="251.5" y="101.5" width="97" height="53" class="w-screen" />
-              <text id="wallTvLabel" x="300" y="130" text-anchor="middle" class="w-label">55″</text>
-              <g class="w-person" transform="translate(528 100) scale(1.25)">
-                <circle cx="12" cy="8" r="8" />
-                <path d="M2 22 Q12 16 22 22 L22 64 L16 64 L15 112 L9 112 L8 64 L2 64 Z" />
-              </g>
-            </svg>
-          </div>
         </div>
 
         <div class="cfg-panel">
@@ -264,6 +246,45 @@
           <ul class="assurance">
             <li>24×7 service support</li><li>Built for power fluctuations &amp; dust</li><li>Made in India</li>
           </ul>
+        </div>
+      </div>
+
+      <div class="room3d" id="room3d">
+        <div class="room-head">
+          <div>
+            <p class="eyebrow">See it in your room</p>
+            <h3 class="room-title">Your living room, <em class="serif">to scale.</em></h3>
+            <p class="room-sub">Every object here is true size — the TV from its real diagonal, the sofa at your viewing distance, a 1.75&nbsp;m person for reference.</p>
+          </div>
+          <div class="room-toggles">
+            <div class="seg" role="group" aria-label="Camera view">
+              <button type="button" data-view="room" aria-pressed="true">Room</button>
+              <button type="button" data-view="sofa" aria-pressed="false">From the sofa</button>
+              <button type="button" data-view="side" aria-pressed="false">Side</button>
+            </div>
+            <button type="button" class="seg-btn" id="roomNight" aria-pressed="false"><i class="moon"></i><span>Night</span></button>
+          </div>
+        </div>
+        <div class="room-stage">
+          <canvas id="roomCanvas" aria-label="3D living room showing the selected TV at true scale"></canvas>
+          <div class="room-readout">
+            <div><span>Screen</span><b id="rdSize">55″</b></div>
+            <div><span>W × H</span><b id="rdDims">1.22×0.68 m</b></div>
+            <div><span>Your view</span><b id="rdFov">26°</b></div>
+            <div class="fit" id="rdFit"><i></i><em>Perfect fit</em></div>
+          </div>
+          <p class="room-hint" id="roomHint">Drag to look around</p>
+        </div>
+        <div class="room-controls">
+          <label class="dist">
+            <span>Your sofa is <b id="distVal">2.6 m</b> from the TV wall</span>
+            <input type="range" id="distRange" min="1.5" max="4.5" step="0.1" value="2.6" />
+            <span class="dist-scale"><i>1.5 m</i><i>3 m</i><i>4.5 m</i></span>
+          </label>
+          <div class="reco">
+            <p id="recoText">At 2.6 m, a 75″ fills your view like a cinema screen.</p>
+            <button type="button" class="btn btn-primary" id="recoBtn" data-magnetic><span>Try 75″</span></button>
+          </div>
         </div>
       </div>
     </section>
