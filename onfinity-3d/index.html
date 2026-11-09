@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Onfinity — See Beyond the Obvious</title>
+  <meta name="description" content="Onfinity Smart 4K, QLED and OLED televisions and display solutions. Designed for India, made in India. Interactive 3D prototype." />
+  <meta name="theme-color" content="#020d0a" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/three.module.js",
+        "three/addons/": "./vendor/three/addons/"
+      }
+    }
+  </script>
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="is-loading">
+
+  <!-- ============ PRELOADER / POWER GATE ============ -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="ld-glow"></div>
+    <button class="ld-power" id="powerBtn" aria-label="Power on the experience" disabled>
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="ld-ring-bg" cx="50" cy="50" r="46" />
+        <circle class="ld-ring" cx="50" cy="50" r="46" />
+        <path class="ld-icon" d="M33 27 H67 M50 27 V50 M36 40 A22 22 0 1 0 64 40" />
+      </svg>
+    </button>
+    <div class="ld-meta">
+      <span class="ld-count" id="ldCount">000</span>
+      <p class="ld-text" id="ldText">WARMING UP THE PANEL</p>
+    </div>
+    <p class="ld-hint" id="ldHint">Press power to switch on</p>
+  </div>
+
+  <!-- CRT power-on flash -->
+  <div id="poweron" aria-hidden="true"><i></i></div>
+
+  <!-- Cursor -->
+  <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span class="cursor-label"></span></div></div>
+
+  <!-- Grain -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="header">
+    <a href="#top" class="brand" aria-label="Onfinity Technologies home">
+      <img src="assets/img/favicon.png" alt="" width="34" height="34" />
+      <span class="brand-word">Ōnfinity</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#story" data-magnetic>Televisions</a>
+      <a href="#showroom" data-magnetic>Showroom</a>
+      <a href="#shop" data-magnetic>Shop</a>
+      <a href="#solutions" data-magnetic>Solutions</a>
+      <a href="#contact" data-magnetic>Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="sound-toggle" id="soundToggle" aria-pressed="true" aria-label="Toggle interface sound">
+        <span></span><span></span><span></span><span></span>
+      </button>
+      <button class="cart-btn" id="cartOpen" data-magnetic aria-label="Open cart">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="menu-btn" id="menuOpen" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Fullscreen menu -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu-inner">
+      <div class="menu-col">
+        <p class="eyebrow">Explore</p>
+        <a href="#story" class="menu-link"><span>01</span>Smart 4K Televisions</a>
+        <a href="#showroom" class="menu-link"><span>02</span>The Infinite Showroom</a>
+        <a href="#shop" class="menu-link"><span>03</span>Shop & Compare</a>
+        <a href="#solutions" class="menu-link"><span>04</span>Solutions</a>
+        <a href="#bharat" class="menu-link"><span>05</span>Made in India</a>
+        <a href="#contact" class="menu-link"><span>06</span>Experience Centre</a>
+      </div>
+      <div class="menu-col menu-side">
+        <p class="eyebrow">Product family</p>
+        <ul>
+          <li>Interactive Flat Panels</li><li>Smart 4K Televisions</li><li>Video Conferencing</li>
+          <li>Indoor / Outdoor LED Walls</li><li>Digital Signage Kiosks</li><li>Digital Visualizers</li>
+          <li>Commercial Displays</li><li>Multimedia Projectors</li><li>Digital Podiums</li><li>Audio Systems</li>
+        </ul>
+        <p class="eyebrow">Toll free</p>
+        <a class="menu-phone" href="tel:18005722292">1800 572 2292</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed WebGL stage for the TV story -->
+  <canvas id="stage" aria-hidden="true"></canvas>
+
+  <main id="top">
+
+    <!-- ============ TV STORY (scroll-driven 3D) ============ -->
+    <section id="story" class="story">
+
+      <div class="chapter chapter-hero" data-screen="infinity">
+        <div class="hero-copy">
+          <p class="eyebrow reveal-up">Smart 4K · QLED · OLED — Designed in Bharat</p>
+          <h1 class="hero-title">
+            <span class="line"><span class="split">See</span></span>
+            <span class="line"><em class="split serif">beyond</em></span>
+            <span class="line"><span class="split">the obvious.</span></span>
+          </h1>
+        </div>
+        <div class="hero-foot">
+          <p class="hero-sub reveal-up">Televisions engineered for Indian homes — bright rooms, power cuts, dust and all. Brilliant on day one, dependable for years.</p>
+          <div class="hero-ctas reveal-up">
+            <a href="#shop" class="btn btn-primary" data-magnetic><span>Shop TVs</span></a>
+            <a href="#showroom" class="btn btn-ghost" data-magnetic><span>Enter showroom</span></a>
+          </div>
+          <div class="scroll-cue"><span>Scroll</span><i></i></div>
+        </div>
+      </div>
+
+      <div class="chapter chapter-right" data-screen="infinity" id="ch-design">
+        <div class="panel">
+          <p class="eyebrow"><span class="idx">01</span> Design</p>
+          <h2 class="h2">Slim. Bezel-less.<br /><em class="serif">Barely there.</em></h2>
+          <p>An edge-to-edge panel that disappears into the wall, so all you see is the picture. Aluminium-finish frame, a profile thinner than your phone at the edge.</p>
+          <ul class="spec-list">
+            <li><b>178°</b><span>Viewing angle</span></li>
+            <li><b>20 W</b><span>Speaker output</span></li>
+            <li><b>6+</b><span>Ports — HDMI, USB, VGA, AV, LAN, Audio</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="chapter chapter-sizes" data-screen="infinity" id="ch-sizes">
+        <div class="sizes-wrap">
+          <p class="eyebrow"><span class="idx">02</span> Every room</p>
+          <div class="size-readout"><span id="sizeNum">32</span><sup>inch</sup></div>
+          <div class="size-rail" id="sizeRail">
+            <span>32</span><span>43</span><span>55</span><span>65</span><span>75</span><span>86</span><span>98</span>
+          </div>
+          <p class="size-note">From a 32" bedroom screen to a 98" home-theatre wall. <span id="sizeDist">Ideal viewing distance ≈ 1.2 m</span></p>
+        </div>
+      </div>
+
+      <div class="chapter chapter-left" data-screen="4k" id="ch-4k">
+        <div class="panel">
+          <p class="eyebrow"><span class="idx">03</span> Picture — True 4K</p>
+          <h2 class="h2">8.3 million pixels.<br /><em class="serif">Every one counts.</em></h2>
+          <p>True 4K Ultra HD resolution with a 60 Hz panel for blur-free motion. Get close — the detail holds up all the way to the sub-pixel.</p>
+          <div class="chip-row"><span class="chip">3840 × 2160</span><span class="chip">60 Hz</span><span class="chip">Non-glare</span></div>
+        </div>
+      </div>
+
+      <div class="chapter chapter-right" data-screen="qled" id="ch-qled">
+        <div class="panel">
+          <p class="eyebrow"><span class="idx">04</span> Picture — QLED</p>
+          <h2 class="h2">Colour that holds<br /><em class="serif">in a bright room.</em></h2>
+          <p>Quantum-dot QLED panels push brighter highlights and more vivid colour — ideal for sunlit Indian living rooms, where ordinary screens wash out.</p>
+          <div class="chip-row"><span class="chip">Quantum dot</span><span class="chip">High brightness</span><span class="chip">Wide colour</span></div>
+        </div>
+      </div>
+
+      <div class="chapter chapter-left" data-screen="oled" id="ch-oled">
+        <div class="panel">
+          <p class="eyebrow"><span class="idx">05</span> Picture — OLED</p>
+          <h2 class="h2">Pixels that switch<br /><em class="serif">themselves off.</em></h2>
+          <p>Self-lit OLED pixels deliver true, absolute black and infinite contrast — premium viewing for dark rooms and late-night cinema.</p>
+          <div class="chip-row"><span class="chip">Per-pixel light</span><span class="chip">True black</span><span class="chip">Sharp detail</span></div>
+        </div>
+      </div>
+
+      <div class="chapter chapter-right" data-screen="smart" id="ch-smart">
+        <div class="panel">
+          <p class="eyebrow"><span class="idx">06</span> Smart</p>
+          <h2 class="h2">Everything you watch,<br /><em class="serif">one remote away.</em></h2>
+          <p>Powered by Android with YouTube, Netflix and Prime Video pre-loaded. Voice control, screen sharing from your phone, and smooth switching between devices.</p>
+          <div class="chip-row"><span class="chip">Android OS</span><span class="chip">Voice remote</span><span class="chip">Screen share</span></div>
+          <a href="#shop" class="btn btn-primary" data-magnetic><span>Find your size</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INFINITE SHOWROOM ============ -->
+    <section id="showroom" class="showroom">
+      <div class="showroom-sticky">
+        <canvas id="corridor" aria-label="Interactive 3D showroom of Onfinity products"></canvas>
+        <div class="showroom-hud">
+          <div class="hud-top">
+            <p class="eyebrow">The infinite showroom</p>
+            <p class="hud-counter"><span id="hudIdx">01</span> / <span id="hudTotal">10</span></p>
+          </div>
+          <h2 class="hud-title" id="hudTitle">Smart 4K Televisions</h2>
+          <p class="hud-hint"><i></i>Scroll or drag to walk · Click a screen to step inside</p>
+        </div>
+        <div class="screen-tag" id="screenTag"><span></span></div>
+      </div>
+    </section>
+
+    <!-- ============ SHOP / CONFIGURATOR ============ -->
+    <section id="shop" class="shop section">
+      <div class="section-head">
+        <p class="eyebrow reveal-up">Shop</p>
+        <h2 class="h1 reveal-lines">Choose your <em class="serif">Onfinity.</em></h2>
+      </div>
+
+      <div class="configurator">
+        <div class="cfg-visual">
+          <div class="cfg-tabs" role="tablist" id="seriesTabs"></div>
+          <div class="cfg-image" id="cfgImageWrap" data-tilt>
+            <img id="cfgImage" src="assets/img/render-qled.jpg" alt="Onfinity television" />
+            <div class="cfg-image-glare"></div>
+          </div>
+          <div class="wall" aria-label="Size preview on a wall">
+            <p class="wall-label">See it on your wall</p>
+            <svg viewBox="0 0 600 260" class="wall-svg" id="wallSvg">
+              <line x1="0" y1="240" x2="600" y2="240" class="w-floor" />
+              <g class="w-sofa" transform="translate(212 172) scale(0.5867 1.2143)">
+                <path d="M10 56 V22 Q10 10 22 10 H278 Q290 10 290 22 V56 Z" />
+                <rect x="0" y="30" width="22" height="26" rx="5" />
+                <rect x="278" y="30" width="22" height="26" rx="5" />
+              </g>
+              <rect id="wallTv" x="250" y="100" width="100" height="56" rx="1.5" class="w-tv" />
+              <rect id="wallTvScreen" x="251.5" y="101.5" width="97" height="53" class="w-screen" />
+              <text id="wallTvLabel" x="300" y="130" text-anchor="middle" class="w-label">55″</text>
+              <g class="w-person" transform="translate(528 100) scale(1.25)">
+                <circle cx="12" cy="8" r="8" />
+                <path d="M2 22 Q12 16 22 22 L22 64 L16 64 L15 112 L9 112 L8 64 L2 64 Z" />
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="cfg-panel">
+          <p class="eyebrow" id="cfgModel">Model ST-55K</p>
+          <h3 class="cfg-name" id="cfgName">Onfinity QLED Smart TV</h3>
+          <p class="cfg-desc" id="cfgDesc"></p>
+
+          <p class="cfg-label">Screen size</p>
+          <div class="size-chips" id="sizeChips" role="radiogroup" aria-label="Screen size"></div>
+
+          <ul class="cfg-specs" id="cfgSpecs"></ul>
+
+          <div class="cfg-price">
+            <div>
+              <p class="price" id="cfgPrice">₹ 0</p>
+              <p class="emi" id="cfgEmi">or from ₹0/month</p>
+            </div>
+            <p class="price-note">Indicative prototype pricing — to be confirmed.</p>
+          </div>
+          <div class="cfg-actions">
+            <button class="btn btn-primary btn-lg" id="addToCart" data-magnetic><span>Add to cart</span></button>
+            <a class="btn btn-ghost btn-lg" href="#contact" data-magnetic><span>Book a demo</span></a>
+          </div>
+          <ul class="assurance">
+            <li>24×7 service support</li><li>Built for power fluctuations &amp; dust</li><li>Made in India</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOLUTIONS (horizontal) ============ -->
+    <section id="solutions" class="solutions">
+      <div class="solutions-pin">
+        <div class="solutions-head">
+          <p class="eyebrow">Beyond the living room</p>
+          <h2 class="h1">One brand. <em class="serif">Every screen</em><br />India works on.</h2>
+          <p class="solutions-lede">The same engineering behind our TVs powers interactive flat panels, LED walls, kiosks and conferencing systems across classrooms, hospitals, courts and command centres.</p>
+        </div>
+        <div class="solutions-track" id="solutionsTrack"></div>
+      </div>
+    </section>
+
+    <!-- ============ MADE IN INDIA / ETHOS ============ -->
+    <section id="bharat" class="bharat section">
+      <div class="bharat-media" data-parallax>
+        <img src="assets/img/make-in-india.jpg" alt="Circuit board with an Indian flag chip — Proud Indian Brand" loading="lazy" />
+      </div>
+      <div class="bharat-copy">
+        <p class="eyebrow reveal-up">Our ethos</p>
+        <h2 class="h1 reveal-lines">Built for Bharat.<br /><em class="serif">Backed for years.</em></h2>
+        <div class="stats">
+          <div class="stat"><b data-count="24">0</b><span>×7 support</span><p>Support continues long after installation. Our team is always a call away.</p></div>
+          <div class="stat"><b data-count="98">0</b><span>″ max size</span><p>Seven sizes from 32 to 98 inches for every room and wall.</p></div>
+          <div class="stat"><b data-count="178">0</b><span>° viewing</span><p>Wide-angle panels so every seat on the sofa gets the same picture.</p></div>
+        </div>
+        <div class="ethos">
+          <article><h3>Right product</h3><p>High-quality, durable hardware designed for Indian conditions — power fluctuations and dust.</p></article>
+          <article><h3>Reasonable price</h3><p>Premium build and picture at genuinely competitive prices.</p></article>
+          <article><h3>Reliable service</h3><p>A 24×7 team that keeps supporting you after the box is opened.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CLIENTS ============ -->
+    <section class="clients" aria-label="Trusted by">
+      <p class="eyebrow">Trusted by institutions across India</p>
+      <div class="marquee" id="marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
+    </section>
+
+    <!-- ============ CONTACT / EXPERIENCE CENTRE ============ -->
+    <section id="contact" class="contact section">
+      <div class="contact-grid">
+        <div>
+          <p class="eyebrow reveal-up">Experience centre</p>
+          <h2 class="h1 reveal-lines">Come see it <em class="serif">in person.</em></h2>
+          <p class="contact-lede reveal-up">Visit our user-experience centre to try smart classroom tech, immersive signage, smart TVs and boardroom collaboration tools — or book a home demo.</p>
+          <div class="offices">
+            <div><h4>Registered office</h4><p>Level 1, Leap Infratech, Plot 6, IT Park, Sector-22, Panchkula, Haryana 134109</p></div>
+            <div><h4>Corporate office</h4><p>Ground Floor, Plot 31, ServSpaces 63, Sector 63, Noida</p></div>
+            <div><h4>Talk to us</h4><p><a href="tel:18005722292">1800 572 2292</a> (toll free)<br /><a href="tel:+916280092849">+91 62800 92849</a><br /><a href="mailto:sales@onfinitytechnologies.com">sales@onfinitytechnologies.com</a></p></div>
+            <div><h4>Open hours</h4><p>Mon–Sat 10:00–18:00<br />Sunday closed</p></div>
+          </div>
+        </div>
+        <form class="demo-form" id="demoForm" novalidate>
+          <h3>Book a demo</h3>
+          <label><span>Name</span><input name="name" required autocomplete="name" /></label>
+          <label><span>Phone</span><input name="phone" required inputmode="tel" autocomplete="tel" /></label>
+          <label><span>City</span><input name="city" autocomplete="address-level2" /></label>
+          <label><span>Interested in</span>
+            <select name="interest">
+              <option>Smart 4K / QLED / OLED TV</option><option>Interactive Flat Panel</option><option>LED Video Wall</option>
+              <option>Digital Signage Kiosk</option><option>Video Conferencing</option>
+            </select>
+          </label>
+          <button class="btn btn-primary btn-lg" type="submit" data-magnetic><span>Request a callback</span></button>
+          <p class="form-msg" id="formMsg" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-links">
+        <div><h4>Products</h4><a href="#story">Smart 4K TVs</a><a href="#showroom">Interactive Flat Panels</a><a href="#showroom">LED Video Walls</a><a href="#showroom">Signage Kiosks</a></div>
+        <div><h4>Company</h4><a href="#bharat">About us</a><a href="#contact">Careers</a><a href="#contact">Events &amp; media</a><a href="#contact">Blogs</a></div>
+        <div><h4>Follow</h4><a href="#" rel="noopener">LinkedIn</a><a href="#" rel="noopener">Instagram</a><a href="#" rel="noopener">Facebook</a></div>
+      </div>
+      <a href="#top" class="to-top" data-magnetic aria-label="Back to top">↑</a>
+    </div>
+    <div class="footer-word" aria-hidden="true"><span>Ō</span>nfinity</div>
+    <div class="footer-bottom">
+      <p>© 2026 Onfinity Technologies. All rights reserved.</p>
+      <p>Prototype concept — not the live site.</p>
+    </div>
+  </footer>
+
+  <!-- Product modal (from showroom) -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close aria-label="Close">×</button>
+      <div class="modal-media"><img id="modalImg" alt="" /></div>
+      <div class="modal-body">
+        <p class="eyebrow" id="modalCat"></p>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <ul id="modalList"></ul>
+        <div class="modal-actions">
+          <a href="#contact" class="btn btn-primary" data-close-nav><span>Enquire now</span></a>
+          <a href="#shop" class="btn btn-ghost" data-close-nav><span>Shop TVs</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart drawer -->
+  <aside class="cart" id="cart" aria-hidden="true" aria-label="Shopping cart">
+    <div class="cart-backdrop" data-cart-close></div>
+    <div class="cart-panel">
+      <div class="cart-head"><h3>Your cart</h3><button data-cart-close aria-label="Close cart">×</button></div>
+      <ul class="cart-items" id="cartItems"></ul>
+      <div class="cart-foot">
+        <div class="cart-total"><span>Subtotal</span><b id="cartTotal">₹ 0</b></div>
+        <button class="btn btn-primary btn-lg" id="checkout"><span>Checkout</span></button>
+        <p class="price-note">Prototype checkout — no payment is taken.</p>
+      </div>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>
