@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Onfinity — Product</title>
+  <meta name="description" content="Onfinity product in interactive 3D." />
+  <meta name="theme-color" content="#020d0a" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/products.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script type="module" src="js/product-page.js"></script>
+</head>
+<body class="pp is-loading">
+  <div class="boot" id="boot" role="status" aria-live="polite">
+    <div class="boot-inner">
+      <p class="boot-brand"><img src="assets/img/favicon.png" alt="" /> <span id="bootTitle">Onfinity</span></p>
+      <ol id="bootLog"></ol>
+      <div class="boot-pct"><span id="bootPct">000</span><small>%</small></div>
+    </div>
+  </div>
+  <div class="wipe in" id="wipe" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span class="cursor-label"></span></div></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header" id="header">
+    <a href="index.html" class="brand" data-transition aria-label="Onfinity home"><img src="assets/img/favicon.png" alt="" width="34" height="34" /><span class="brand-word">Ōnfinity</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" data-transition>Televisions</a>
+      <a href="products.html" data-transition class="is-active">Products</a>
+      <a href="index.html#shop" data-transition>Shop</a>
+      <a href="index.html#contact" data-transition>Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="cart-btn" href="index.html#shop" data-transition>Cart <span class="cart-count" id="cartCount">0</span></a>
+    </div>
+  </header>
+
+  <canvas id="pstage" aria-label="Interactive 3D product model"></canvas>
+  <div class="callout-layer" aria-live="polite">
+    <svg aria-hidden="true"><line id="hsLine" x1="0" y1="0" x2="0" y2="0" /></svg>
+    <div class="hs-dot" id="hsDot"></div>
+    <div class="hs-card" id="hsCard"><p class="tag"><span id="hsTag">001</span><b id="hsCount">/005</b></p><h3 id="hsTitle"></h3><p id="hsText"></p></div>
+  </div>
+  <div class="pp-rail" id="rail"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="hud" aria-hidden="true">
+    <span class="hud-xy">X: <b id="hx">0000</b> PX <span class="sep">/</span> Y: <b id="hy">0000</b> PX</span>
+    <span>Station <b id="hst">00</b>/05 <span class="sep">·</span> <b id="hcode">OT</b></span>
+  </div>
+
+  <main>
+    <section class="pp-hero">
+      <div>
+        <p class="pp-crumbs"><a href="index.html" data-transition>Home</a><span class="sep">/</span><a href="products.html" data-transition>Products</a><span class="sep">/</span><span id="crumb"></span></p>
+      </div>
+      <div>
+        <p class="pp-name" id="ppName"></p>
+        <h1 class="pp-title" id="ppTitle"></h1>
+      </div>
+      <div class="pp-hero-foot">
+        <p class="lede" id="ppLede"></p>
+        <div class="pp-cta">
+          <a href="#specs" class="btn btn-primary" data-magnetic><span>View specs</span></a>
+          <a href="index.html#contact" class="btn btn-ghost" data-magnetic data-transition><span>Book a demo</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pp-track" id="track" aria-label="Product features">
+      <div class="pp-step"></div><div class="pp-step"></div><div class="pp-step"></div><div class="pp-step"></div><div class="pp-step"></div>
+    </section>
+
+    <section class="pp-photo" id="photo">
+      <div class="pp-photo-head">
+        <div>
+          <p class="eyebrow">In the real world</p>
+          <h2 class="h1">Not a render. <em class="serif">The real thing.</em></h2>
+        </div>
+        <p>Hover to inspect up close. Visit our experience centres in Panchkula and Noida to try it in person.</p>
+      </div>
+      <div class="photo-frame" id="photoFrame">
+        <img id="ppPhoto" alt="" />
+        <div class="loupe" id="loupe"></div>
+        <span class="photo-cap" id="photoCap">Onfinity · original photo</span>
+      </div>
+    </section>
+
+    <section class="pp-specs" id="specs">
+      <div class="pp-specs-grid">
+        <div>
+          <p class="eyebrow">Specifications</p>
+          <h2 class="h1" id="specTitle">Built to <em class="serif">perform.</em></h2>
+        </div>
+        <div>
+          <div class="spec-table" id="specTable"></div>
+          <p class="eyebrow" style="margin-top:40px">Models</p>
+          <div class="chips models" id="models"></div>
+          <p class="eyebrow">Made for</p>
+          <div class="chips" id="uses"></div>
+          <div class="pp-cta">
+            <a class="btn btn-primary btn-lg" href="index.html#contact" data-transition data-magnetic><span>Enquire now</span></a>
+            <a class="btn btn-ghost btn-lg" id="catalog" href="#" target="_blank" rel="noopener" data-magnetic><span>Download catalogue ↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <a class="pp-next" id="next" href="#" data-transition>
+      <p class="eyebrow">Next product <span id="nextIdx"></span></p>
+      <h2 id="nextName"></h2>
+      <div class="next-img"><img id="nextImg" alt="" /></div>
+    </a>
+    <footer class="pp-foot"><p>© 2026 Onfinity Technologies · Made in India</p><p>Prototype concept — not the live site.</p></footer>
+  </main>
+</body>
+</html>

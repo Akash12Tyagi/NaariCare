@@ -102,17 +102,17 @@ export const SHOWROOM = [
     list: ['10-point multi-touch', 'Integrated Android, optional i3/i5 PC', 'Dust-proof design', 'Ignite, Maxim & Bloom series'],
   },
   {
-    title: 'LED Video Walls', cat: 'Indoor & outdoor', img: IMG + 'outdoor-led.jpg', aspect: 1.5,
+    pid: 'led', title: 'LED Video Walls', cat: 'Indoor & outdoor', img: IMG + 'outdoor-led.jpg', aspect: 1.5,
     desc: 'Pixel-perfect indoor and outdoor LED walls engineered for 24/7 operation, in custom sizes and configurations.',
     list: ['Active & COB LED options', 'Command centres, retail, arenas, façades', '135" all-in-one video wall'],
   },
   {
-    title: 'Digital Signage Kiosks', cat: 'Retail & public spaces', img: IMG + 'kiosk-crop.jpg', aspect: 0.88,
+    pid: 'kiosk', title: 'Digital Signage Kiosks', cat: 'Retail & public spaces', img: IMG + 'kiosk-crop.jpg', aspect: 0.88,
     desc: 'Say it loud and clear. Floor-standing touch kiosks for wayfinding, promotions and self-service.',
     list: ['Portrait touch display', 'Remote content management', 'Malls, hospitals, banks, campuses'],
   },
   {
-    title: 'Video Conferencing', cat: 'Collaboration', img: IMG + 'enterprise.jpg', aspect: 1.786,
+    pid: 'camera', title: 'Video Conferencing', cat: 'Collaboration', img: IMG + 'enterprise.jpg', aspect: 1.786,
     desc: 'From conferencing cameras to meeting-room displays — teamwork made simple across locations.',
     list: ['PTZ conferencing cameras', 'Meeting-room displays', 'Wireless screen sharing'],
   },
@@ -127,7 +127,7 @@ export const SHOWROOM = [
     list: ['Queue management', 'Department-wide updates', 'Patient wayfinding'],
   },
   {
-    title: 'Commercial Displays', cat: 'Boardrooms', img: IMG + 'office.jpg', aspect: 1.333,
+    pid: 'display', title: 'Commercial Displays', cat: 'Boardrooms', img: IMG + 'office.jpg', aspect: 1.333,
     desc: 'Large-format 4K displays for boardrooms, lobbies and dashboards.',
     list: ['65" to 98" sizes', 'Extended-hours operation', 'Wall or stand mount'],
   },
