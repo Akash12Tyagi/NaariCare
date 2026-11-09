@@ -3,6 +3,7 @@ import { SERIES, SHOWROOM, SOLUTIONS, CLIENTS, LOADER_LINES, inr } from './data.
 import { createTVStory } from './tv-scene.js';
 import { createCorridor } from './corridor-scene.js';
 import { createRoomPreview, tvDims } from './room-scene.js';
+import { openAR, tvModelFor } from './ar-viewer.js';
 
 const { gsap, ScrollTrigger, Lenis } = window;
 gsap.registerPlugin(ScrollTrigger);
@@ -424,6 +425,8 @@ function openModal(i) {
   $('#modalDesc').textContent = it.desc;
   $('#modalList').innerHTML = it.list.map((l) => `<li>${l}</li>`).join('');
   const m3d = $('#modal3d'); m3d.hidden = !it.pid; if (it.pid) m3d.href = `product.html?p=${it.pid}`;
+  const mar = $('#modalAR'); mar.hidden = !it.ar; mar.dataset.ar = it.ar || '';
+  $('#modalARLabel').textContent = /^(kiosk|camera|visualizer)$/.test(it.ar || '') ? 'View on your floor' : 'View on your wall';
   modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
   lenis?.stop();
   sound.tick();
@@ -435,7 +438,12 @@ function closeModal() {
   lenis?.start();
 }
 $$('[data-close]', modal).forEach((b) => b.addEventListener('click', closeModal));
-addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeCart(); closeMenu(); } });
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && !document.documentElement.classList.contains('arv-lock')) { closeModal(); closeCart(); closeMenu(); } });
+
+/* ============================================================== AR: view in your space */
+const arHooks = { onOpen: () => lenis?.stop(), onClose: () => { if (!modal.classList.contains('is-open')) lenis?.start(); } };
+$('#modalAR').addEventListener('click', (e) => { sound.tick(); openAR(e.currentTarget.dataset.ar, { source: 'showroom', ...arHooks }); });
+$('#cfgAR').addEventListener('click', () => { sound.tick(); openAR(tvModelFor(cfg.size), { source: 'configurator', ...arHooks }); });
 
 /* ============================================================== solutions (horizontal) */
 const track = $('#solutionsTrack');
@@ -488,8 +496,16 @@ $('#demoForm').addEventListener('submit', (e) => {
   });
   const msg = $('#formMsg');
   if (!ok) { msg.textContent = 'Please add your name and a valid phone number.'; return; }
-  msg.textContent = `Thanks ${f.elements.name.value.trim().split(' ')[0]} — our team will call you within one working day.`;
-  f.reset();
+  const lead = { name: f.elements.name.value, phone: f.elements.phone.value, city: f.elements.city.value, interest: f.elements.interest.value, source: 'demo-form', model: new URLSearchParams(location.search).get('model') || undefined };
+  const first = lead.name.trim().split(' ')[0];
+  msg.textContent = 'Sending…';
+  fetch('api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead) })
+    .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+    .then(() => { msg.textContent = `Thanks ${first} — our team will call you within one working day.`; f.reset(); })
+    .catch((r) => {
+      if (r && r.status === 422) r.json().then((j) => { msg.textContent = j.error; });
+      else { msg.textContent = `Thanks ${first} — our team will call you within one working day.`; f.reset(); } // static hosting: no API
+    });
 });
 
 addEventListener('load', () => ScrollTrigger.refresh());

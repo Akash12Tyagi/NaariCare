@@ -9,6 +9,7 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 import { byId, nextOf, PRODUCTS } from './product-data.js';
 import { BUILDERS } from './models.js';
 import { CursorFxShader, trackPointer, initChrome } from './fx.js';
+import { openAR, AR_FOR_PRODUCT } from './ar-viewer.js';
 
 const { gsap, ScrollTrigger } = window;
 const $ = (s) => document.querySelector(s);
@@ -49,6 +50,12 @@ const BOOT = {
 };
 
 const chrome = initChrome({ reduced });
+
+// AR: view this product in your own room at real size
+const arId = AR_FOR_PRODUCT[prod.id];
+const arHooks = { source: 'product-page', onOpen: () => chrome.lenis?.stop(), onClose: () => chrome.lenis?.start() };
+$('#ppARLabel').textContent = /^(kiosk|camera|visualizer)$/.test(arId) ? 'View on your floor · AR' : 'View on your wall · AR';
+['#ppAR', '#ppAR2'].forEach((s) => $(s).addEventListener('click', () => openAR(arId, arHooks)));
 
 /* ---------------------------------------------------------------- renderer */
 const canvas = $('#pstage');

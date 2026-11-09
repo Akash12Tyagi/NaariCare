@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <base href="../" />
+  <title>AR export</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <p>Building AR assets… run <code>npm run export:ar</code> instead of opening this page directly.</p>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+    import { USDZExporter } from 'three/addons/exporters/USDZExporter.js';
+    import { AR_ITEMS, buildAR, finalize } from './js/ar-models.js';
+
+    const b64 = (buf) => {
+      const bytes = new Uint8Array(buf); let s = '';
+      for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      return btoa(s);
+    };
+
+    window.exportAll = async (only) => {
+      await document.fonts.load('600 64px Inter');
+      await document.fonts.ready;
+      const manager = new THREE.LoadingManager();
+      let started = 0, ended = 0;
+      const iS = manager.itemStart.bind(manager), iE = manager.itemEnd.bind(manager), iErr = manager.itemError.bind(manager);
+      manager.itemStart = (u) => { started++; iS(u); };
+      manager.itemEnd = (u) => { ended++; iE(u); };
+      manager.itemError = (u) => { console.error('texture failed: ' + u); iErr(u); };
+      const loader = new THREE.TextureLoader(manager);
+      const items = AR_ITEMS.filter((it) => !only || only.includes(it.id));
+      const built = items.map((it) => ({ it, root: buildAR(it, loader) }));
+      // wait for every texture the builders queued (with a safety timeout)
+      const t0 = performance.now();
+      while (ended < started && performance.now() - t0 < 20000) await new Promise((r) => setTimeout(r, 50));
+      const gltf = new GLTFExporter(), usdz = new USDZExporter();
+      const files = [], manifest = [];
+      for (const { it, root } of built) {
+        const dims = finalize(root, it);
+        const glb = await gltf.parseAsync(root, { binary: true, onlyVisible: true, maxTextureSize: 2048 });
+        const usd = await usdz.parseAsync(root, {
+          quickLookCompatible: true, maxTextureSize: 1024,
+          ar: { anchoring: { type: 'plane' }, planeAnchoring: { alignment: it.placement === 'wall' ? 'vertical' : 'horizontal' } },
+        });
+        files.push({ name: `${it.id}.glb`, data: b64(glb) }, { name: `${it.id}.usdz`, data: b64(usd) });
+        manifest.push({ id: it.id, group: it.group, size: it.size ?? null, name: it.name, placement: it.placement, allowFloor: it.allowFloor !== false, dims, glb: `assets/ar/${it.id}.glb`, usdz: `assets/ar/${it.id}.usdz` });
+      }
+      return { files, manifest };
+    };
+    window.exportReady = true;
+  </script>
+</body>
+</html>

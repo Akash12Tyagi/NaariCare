@@ -129,6 +129,7 @@ function buildCamera(loader) {
   for (let i = 0; i < 4; i++) { const t = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.012, 0.012), retMat); t.rotation.z = (i * Math.PI) / 2; t.position.set(Math.cos(i * Math.PI / 2) * 0.3, Math.sin(i * Math.PI / 2) * 0.3, 0); reticle.add(t); }
   const target = person(new THREE.MeshStandardMaterial({ color: 0xd8d3c9, roughness: 0.8, transparent: true, opacity: 0 }), 1.0);
   group.add(reticle, target);
+  reticle.userData.noAR = target.userData.noAR = fov.userData.noAR = true;
 
   shadowed(group);
   const hotspots = { lens: anchor(tilt, 0, 0.2, 0.5), yoke: anchor(pan, 0.52, 0.55, 0), base: anchor(group, 0, 0.22, 0.75) };
@@ -211,13 +212,15 @@ function buildLED(loader) {
   }
   // support truss + floor feet
   const truss = new THREE.Mesh(new THREE.BoxGeometry(W * 0.96, 0.06, 0.06), backMat); truss.position.set(0, -H / 2 - 0.05, -0.12); wall.add(truss);
-  [-1, 1].forEach((s) => { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.0 + H / 2 - 0.05, 0.08), backMat); leg.position.set(s * W * 0.42, -(1.0 + H / 2 - 0.05) / 2 - H / 2 - 0.05 + 0.0, -0.14); wall.add(leg); });
+  truss.userData.noAR = true;
+  [-1, 1].forEach((s) => { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.0 + H / 2 - 0.05, 0.08), backMat); leg.position.set(s * W * 0.42, -(1.0 + H / 2 - 0.05) / 2 - H / 2 - 0.05 + 0.0, -0.14); leg.userData.noAR = true; wall.add(leg); });
   const logoTex = wordmark('Ōnfinity', '#c9cfc9', '#0b0d0e', 512, 128, 60);
   const logo = new THREE.Mesh(new THREE.PlaneGeometry(0.32, 0.08), new THREE.MeshBasicMaterial({ map: logoTex })); logo.position.set(0, -H / 2 - 0.05, 0.01); wall.add(logo);
   // people for scale
   const pm = new THREE.MeshStandardMaterial({ color: 0x0b0d0e, roughness: 0.9 });
   const p1 = person(pm, 1.78); p1.position.set(2.75, 0, 0.9); group.add(p1);
   const p2 = person(pm, 1.65); p2.position.set(3.2, 0, 0.6); group.add(p2);
+  p1.userData.noAR = p2.userData.noAR = true;
   const glow = new THREE.RectAreaLight(0xbcd6ff, 6, W, H); glow.position.set(0, wall.position.y, 0.05); glow.lookAt(0, wall.position.y, 5); group.add(glow);
 
   shadowed(group);
@@ -309,7 +312,7 @@ function buildKiosk(loader) {
   for (let i = 0; i < 3; i++) {
     const m = new THREE.Mesh(new THREE.TorusGeometry(0.15 + i * 0.12, 0.01, 8, 48, Math.PI * 0.6), new THREE.MeshBasicMaterial({ color: new THREE.Color(0xffcb05).multiplyScalar(2), transparent: true, opacity: 0 }));
     m.rotation.z = Math.PI / 2 - Math.PI * 0.3; m.position.set(0, BY + BH + 0.12, 0);
-    group.add(m); waves.push(m);
+    m.userData.noAR = true; group.add(m); waves.push(m);
   }
   // OPS slot on the back
   const ops = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.2, 0.02), new THREE.MeshStandardMaterial({ color: 0x1a1d1e, emissive: 0xb8d433, emissiveIntensity: 0 }));
@@ -410,6 +413,7 @@ function buildVisualizer(loader) {
   const beamCurve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3());
   const beamMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0xb8d433).multiplyScalar(2), transparent: true, opacity: 0 });
   let beam = new THREE.Mesh(new THREE.TubeGeometry(beamCurve, 40, 0.006, 6), beamMat); group.add(beam);
+  feedGroup.userData.noAR = true;
 
   shadowed(group);
   const hotspots = { arm: anchor(seg1, 0, 0.1, 0.05), head: anchor(head, 0, 0.05, 0.1), lamp: anchor(lamps[0].hinge, 0, 0.08, 0.3), panel: anchor(group, -0.38, 0.09, -0.45) };
@@ -427,6 +431,7 @@ function buildVisualizer(loader) {
     group, hotspots, cams, floor: 0, exposure: 0.6, bloomThreshold: 1.0, bloomStrength: 0.12,
     apply(p) { Pv = p; },
     update(t) {
+      beam.userData.noAR = true;
       const u = smooth(0.15, 1.0, Pv);                     // unfold
       root.rotation.x = lerp(-1.45, -0.42, u);
       j2.rotation.x = lerp(-1.6, 1.62, u);

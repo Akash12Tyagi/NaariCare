@@ -1,0 +1,16 @@
+{
+  "name": "onfinity-3d-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Onfinity Technologies — 3D website prototype with AR product placement",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server/server.mjs",
+    "export:ar": "node tools/export-ar.mjs",
+    "test:api": "node --test server/server.test.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}

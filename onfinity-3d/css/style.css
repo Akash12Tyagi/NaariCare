@@ -556,3 +556,74 @@ main, .footer { position: relative; z-index: 1; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   .grain { display: none; }
 }
+
+/* ---------- AR viewer: "View in your space" ---------- */
+[hidden] { display: none !important; }
+.arv.has-qr .arv-stage { height: min(40vh, 400px); }
+html.arv-lock, html.arv-lock body { overflow: hidden !important; }
+.arv { position: fixed; inset: 0; z-index: 96; display: grid; place-items: center; padding: 16px; visibility: hidden; pointer-events: none; }
+.arv.open { visibility: visible; pointer-events: auto; }
+.arv-backdrop { position: absolute; inset: 0; background: rgba(1, 6, 5, .74); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; transition: opacity .5s; }
+.arv.open .arv-backdrop { opacity: 1; }
+.arv-card {
+  position: relative; width: min(980px, 100%); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow: auto;
+  background: var(--green-950); border: 1px solid var(--line); border-radius: 24px; padding: 22px;
+  transform: translateY(24px) scale(.98); opacity: 0; transition: transform .7s var(--ease), opacity .5s;
+}
+.arv.open .arv-card { transform: none; opacity: 1; }
+.arv-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 14px; }
+.arv-eyebrow { margin: 0 0 8px; display: flex; align-items: center; gap: 8px; font: 500 11px/1 ui-monospace, Menlo, monospace; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
+.arv-eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 10px var(--lime); animation: blink 1.4s steps(2) infinite; }
+.arv-title { margin: 0; font-size: clamp(22px, 2.6vw, 34px); font-weight: 500; letter-spacing: -.02em; line-height: 1.1; }
+.arv-dims { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+.arv-close { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 1px solid var(--line); font-size: 24px; line-height: 1; }
+.arv-stage { position: relative; height: min(56vh, 520px); border-radius: 18px; overflow: hidden; background: radial-gradient(90% 80% at 50% 30%, #123c30, #04120e); border: 1px solid var(--line); }
+.arv-stage model-viewer { position: absolute; inset: 0; width: 100%; height: 100%; --poster-color: transparent; background: transparent; }
+.arv-cam { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+.arv.on-camera .arv-cam { display: block; }
+.arv.on-camera .arv-stage { background: #000; }
+.arv-loading { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px; color: var(--muted); font-size: 14px; pointer-events: none; transition: opacity .4s; }
+.arv-loading span { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); border-top-color: var(--lime); animation: spin 0.9s linear infinite; }
+.arv-loading.done { opacity: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.arv-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent; }
+.arv-progress i { display: block; height: 100%; background: var(--lime); transform-origin: left; transform: scaleX(0); transition: transform .3s; }
+.arv-ar-btn {
+  position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px;
+  height: 52px; padding: 0 24px; border-radius: 999px; background: var(--lime); color: var(--ink); font-weight: 600; font-size: 15px;
+  box-shadow: 0 10px 30px rgba(184, 212, 51, .35); white-space: nowrap;
+}
+.arv-ar-btn svg { width: 20px; height: 20px; }
+.arv-hs { background: rgba(2, 13, 10, .82); border: 1px solid var(--lime); color: var(--text); border-radius: 999px; padding: 5px 10px; font: 600 12px/1 ui-monospace, Menlo, monospace; white-space: nowrap; pointer-events: none; }
+.arv-hs[data-visible="false"], .arv-hs:not([data-visible]) { opacity: .9; }
+.arv-ar-prompt { position: absolute; left: 50%; bottom: 120px; transform: translateX(-50%); display: none; flex-direction: column; align-items: center; gap: 10px; color: #fff; text-align: center; max-width: 260px; text-shadow: 0 2px 10px rgba(0,0,0,.7); }
+.arv-ar-prompt svg { width: 44px; height: 44px; animation: arHand 2.4s ease-in-out infinite; }
+model-viewer[ar-status="session-started"] > .arv-ar-prompt { display: flex; }
+model-viewer[ar-status="object-placed"] > .arv-ar-prompt { display: none; }
+@keyframes arHand { 0%, 100% { transform: translateX(-30px); } 50% { transform: translateX(30px); } }
+.arv-sizes { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.arv-sizes button { min-width: 58px; height: 42px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.arv-sizes button[aria-checked="true"] { background: var(--lime); color: var(--ink); border-color: var(--lime); font-weight: 600; }
+.arv-actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+.arv-hint { color: var(--muted); font-size: 14px; max-width: 520px; }
+.arv-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+.arv-qr { display: grid; grid-template-columns: 148px 1fr; gap: 20px; align-items: center; margin-top: 18px; padding: 16px; border-radius: 16px; border: 1px dashed rgba(184, 212, 51, .35); }
+.arv-qr[hidden] { display: none; }
+.arv-qr-code { width: 148px; height: 148px; background: #fff; border-radius: 10px; padding: 6px; }
+.arv-qr-code svg { width: 100%; height: 100%; display: block; }
+.arv-qr-title { margin: 0 0 6px; font-size: 18px; font-weight: 500; }
+.arv-qr-text { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+.arv-qr-url { margin: 0; font: 500 12px ui-monospace, Menlo, monospace; color: var(--lime); word-break: break-all; }
+.arv-status { margin: 12px 0 0; min-height: 1.2em; font-size: 14px; color: var(--sun); }
+.arv.standalone .arv-backdrop { background: var(--bg); }
+@media (max-width: 720px) {
+  .arv { padding: 0; }
+  .arv-card { border-radius: 0; max-height: 100vh; max-height: 100dvh; height: 100dvh; padding: 16px; }
+  .arv-stage { height: 52vh; height: 52dvh; }
+  .arv-qr { grid-template-columns: 1fr; }
+}
+
+/* AR trigger button used on cards / pages */
+.btn-ar { display: inline-flex; gap: 10px; }
+.btn-ar svg { width: 18px; height: 18px; position: relative; z-index: 1; }
+.btn-ar small { display: block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; opacity: .7; }

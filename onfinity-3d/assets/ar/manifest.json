@@ -1,0 +1,231 @@
+{
+  "generated": "2026-11-09T11:55:07.435Z",
+  "units": "metres",
+  "models": [
+    {
+      "id": "tv-32",
+      "group": "tv",
+      "size": 32,
+      "name": "Onfinity Smart 4K TV · 32″",
+      "placement": "wall",
+      "allowFloor": false,
+      "dims": {
+        "w": 0.72,
+        "h": 0.42,
+        "d": 0.041
+      },
+      "glb": "assets/ar/tv-32.glb",
+      "usdz": "assets/ar/tv-32.usdz"
+    },
+    {
+      "id": "tv-43",
+      "group": "tv",
+      "size": 43,
+      "name": "Onfinity Smart 4K TV · 43″",
+      "placement": "wall",
+      "allowFloor": false,
+      "dims": {
+        "w": 0.964,
+        "h": 0.56,
+        "d": 0.041
+      },
+      "glb": "assets/ar/tv-43.glb",
+      "usdz": "assets/ar/tv-43.usdz"
+    },
+    {
+      "id": "tv-55",
+      "group": "tv",
+      "size": 55,
+      "name": "Onfinity Smart 4K TV · 55″",
+      "placement": "wall",
+      "allowFloor": false,
+      "dims": {
+        "w": 1.23,
+        "h": 0.712,
+        "d": 0.041
+      },
+      "glb": "assets/ar/tv-55.glb",
+      "usdz": "assets/ar/tv-55.usdz"
+    },
+    {
+      "id": "tv-65",
+      "group": "tv",
+      "size": 65,
+      "name": "Onfinity Smart 4K TV · 65″",
+      "placement": "wall",
+      "allowFloor": false,
+      "dims": {
+        "w": 1.451,
+        "h": 0.838,
+        "d": 0.041
+      },
+      "glb": "assets/ar/tv-65.glb",
+      "usdz": "assets/ar/tv-65.usdz"
+    },
+    {
+      "id": "tv-75",
+      "group": "tv",
+      "size": 75,
+      "name": "Onfinity Smart 4K TV · 75″",
+      "placement": "wall",
+      "allowFloor": false,
+      "dims": {
+        "w": 1.672,
+        "h": 0.964,
+        "d": 0.041
+      },
+      "glb": "assets/ar/tv-75.glb",
+      "usdz": "assets/ar/tv-75.usdz"
+    },
+    {
+      "id": "tv-86",
+      "group": "tv",
+      "size": 86,
+      "name": "Onfinity Smart 4K TV · 86″",
+      "placement": "wall",
+      "allowFloor": false,
+      "dims": {
+        "w": 1.916,
+        "h": 1.101,
+        "d": 0.041
+      },
+      "glb": "assets/ar/tv-86.glb",
+      "usdz": "assets/ar/tv-86.usdz"
+    },
+    {
+      "id": "tv-98",
+      "group": "tv",
+      "size": 98,
+      "name": "Onfinity Smart 4K TV · 98″",
+      "placement": "wall",
+      "allowFloor": false,
+      "dims": {
+        "w": 2.182,
+        "h": 1.25,
+        "d": 0.041
+      },
+      "glb": "assets/ar/tv-98.glb",
+      "usdz": "assets/ar/tv-98.usdz"
+    },
+    {
+      "id": "ifpd-75",
+      "group": "ifpd",
+      "size": 75,
+      "name": "Onfinity Interactive Flat Panel · 75″",
+      "placement": "wall",
+      "allowFloor": true,
+      "dims": {
+        "w": 1.704,
+        "h": 0.982,
+        "d": 0.103
+      },
+      "glb": "assets/ar/ifpd-75.glb",
+      "usdz": "assets/ar/ifpd-75.usdz"
+    },
+    {
+      "id": "ifpd-86",
+      "group": "ifpd",
+      "size": 86,
+      "name": "Onfinity Interactive Flat Panel · 86″",
+      "placement": "wall",
+      "allowFloor": true,
+      "dims": {
+        "w": 1.948,
+        "h": 1.119,
+        "d": 0.103
+      },
+      "glb": "assets/ar/ifpd-86.glb",
+      "usdz": "assets/ar/ifpd-86.usdz"
+    },
+    {
+      "id": "display-55",
+      "group": "display",
+      "size": 55,
+      "name": "Onfinity Commercial Display · 55″",
+      "placement": "wall",
+      "allowFloor": true,
+      "dims": {
+        "w": 1.238,
+        "h": 0.712,
+        "d": 0.073
+      },
+      "glb": "assets/ar/display-55.glb",
+      "usdz": "assets/ar/display-55.usdz"
+    },
+    {
+      "id": "display-info",
+      "group": "display-info",
+      "size": 55,
+      "name": "Onfinity Information Display · 55″",
+      "placement": "wall",
+      "allowFloor": true,
+      "dims": {
+        "w": 1.238,
+        "h": 0.712,
+        "d": 0.073
+      },
+      "glb": "assets/ar/display-info.glb",
+      "usdz": "assets/ar/display-info.usdz"
+    },
+    {
+      "id": "led",
+      "group": "led",
+      "size": null,
+      "name": "Onfinity LED Video Wall · 3.4 × 1.0 m",
+      "placement": "wall",
+      "allowFloor": true,
+      "dims": {
+        "w": 3.399,
+        "h": 1.092,
+        "d": 0.105
+      },
+      "glb": "assets/ar/led.glb",
+      "usdz": "assets/ar/led.usdz"
+    },
+    {
+      "id": "kiosk",
+      "group": "kiosk",
+      "size": null,
+      "name": "Onfinity Digital Signage Kiosk · 43″",
+      "placement": "floor",
+      "allowFloor": true,
+      "dims": {
+        "w": 0.708,
+        "h": 1.894,
+        "d": 0.37
+      },
+      "glb": "assets/ar/kiosk.glb",
+      "usdz": "assets/ar/kiosk.usdz"
+    },
+    {
+      "id": "camera",
+      "group": "camera",
+      "size": null,
+      "name": "Onfinity PTZ Conference Camera",
+      "placement": "floor",
+      "allowFloor": true,
+      "dims": {
+        "w": 0.17,
+        "h": 0.191,
+        "d": 0.147
+      },
+      "glb": "assets/ar/camera.glb",
+      "usdz": "assets/ar/camera.usdz"
+    },
+    {
+      "id": "visualizer",
+      "group": "visualizer",
+      "size": null,
+      "name": "Onfinity Digital Visualizer",
+      "placement": "floor",
+      "allowFloor": true,
+      "dims": {
+        "w": 0.42,
+        "h": 0.263,
+        "d": 0.427
+      },
+      "glb": "assets/ar/visualizer.glb",
+      "usdz": "assets/ar/visualizer.usdz"
+    }
+  ]
+}
