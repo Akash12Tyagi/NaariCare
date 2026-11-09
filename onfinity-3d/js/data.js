@@ -87,47 +87,47 @@ export const SERIES = [
 // Screens in the "Infinite Showroom" corridor.
 export const SHOWROOM = [
   {
-    title: 'Smart 4K Televisions', cat: 'Home entertainment', img: IMG + '4k.jpg', aspect: 1.5,
+    ar: 'tv-55', title: 'Smart 4K Televisions', cat: 'Home entertainment', img: IMG + '4k.jpg', aspect: 1.5,
     desc: 'Onfinity Smart 4K TVs bring images to life with brilliant detail, vibrant colour and smart connectivity. Powered by Android OS.',
     list: ['Slim, bezel-less design', 'True 4K, 60 Hz panel', '20 W speaker output', 'Available from 32" to 98"'],
   },
   {
-    title: 'QLED Televisions', cat: 'Home entertainment', img: IMG + 'render-qled.jpg', aspect: 1.333,
+    ar: 'tv-65', title: 'QLED Televisions', cat: 'Home entertainment', img: IMG + 'render-qled.jpg', aspect: 1.333,
     desc: 'QLED TVs offer brighter screens and vibrant colours. Ideal for well-lit spaces where clear and bold visuals are important.',
     list: ['Quantum-dot colour', 'Non-glare screen', 'Voice control & screen sharing'],
   },
   {
-    title: 'Interactive Flat Panels', cat: 'Education & enterprise', img: IMG + 'education.jpg', aspect: 1.816,
+    ar: 'ifpd-75', title: 'Interactive Flat Panels', cat: 'Education & enterprise', img: IMG + 'education.jpg', aspect: 1.816,
     desc: 'Multi-touch 4K displays with built-in AI tools and collaboration features, for smart classrooms, training and board rooms.',
     list: ['10-point multi-touch', 'Integrated Android, optional i3/i5 PC', 'Dust-proof design', 'Ignite, Maxim & Bloom series'],
   },
   {
-    pid: 'led', title: 'LED Video Walls', cat: 'Indoor & outdoor', img: IMG + 'outdoor-led.jpg', aspect: 1.5,
+    ar: 'led', pid: 'led', title: 'LED Video Walls', cat: 'Indoor & outdoor', img: IMG + 'outdoor-led.jpg', aspect: 1.5,
     desc: 'Pixel-perfect indoor and outdoor LED walls engineered for 24/7 operation, in custom sizes and configurations.',
     list: ['Active & COB LED options', 'Command centres, retail, arenas, façades', '135" all-in-one video wall'],
   },
   {
-    pid: 'kiosk', title: 'Digital Signage Kiosks', cat: 'Retail & public spaces', img: IMG + 'kiosk-crop.jpg', aspect: 0.88,
+    ar: 'kiosk', pid: 'kiosk', title: 'Digital Signage Kiosks', cat: 'Retail & public spaces', img: IMG + 'kiosk-crop.jpg', aspect: 0.88,
     desc: 'Say it loud and clear. Floor-standing touch kiosks for wayfinding, promotions and self-service.',
     list: ['Portrait touch display', 'Remote content management', 'Malls, hospitals, banks, campuses'],
   },
   {
-    pid: 'camera', title: 'Video Conferencing', cat: 'Collaboration', img: IMG + 'enterprise.jpg', aspect: 1.786,
+    ar: 'camera', pid: 'camera', title: 'Video Conferencing', cat: 'Collaboration', img: IMG + 'enterprise.jpg', aspect: 1.786,
     desc: 'From conferencing cameras to meeting-room displays — teamwork made simple across locations.',
     list: ['PTZ conferencing cameras', 'Meeting-room displays', 'Wireless screen sharing'],
   },
   {
-    title: 'Command & Control', cat: 'Defence & government', img: IMG + 'defence.jpg', aspect: 1.75,
+    ar: 'led', title: 'Command & Control', cat: 'Defence & government', img: IMG + 'defence.jpg', aspect: 1.75,
     desc: 'Clear visuals and uninterrupted communication for command centres, briefing rooms and training setups.',
     list: ['Display walls', 'Real-time situational updates', 'Built for reliability'],
   },
   {
-    title: 'Healthcare Displays', cat: 'Hospitals', img: IMG + 'healthcare.jpg', aspect: 1.495,
+    ar: 'display-info', title: 'Healthcare Displays', cat: 'Hospitals', img: IMG + 'healthcare.jpg', aspect: 1.495,
     desc: 'Manage queues, show doctor availability and guide patients with easy-to-read displays.',
     list: ['Queue management', 'Department-wide updates', 'Patient wayfinding'],
   },
   {
-    pid: 'display', title: 'Commercial Displays', cat: 'Boardrooms', img: IMG + 'office.jpg', aspect: 1.333,
+    ar: 'display-55', pid: 'display', title: 'Commercial Displays', cat: 'Boardrooms', img: IMG + 'office.jpg', aspect: 1.333,
     desc: 'Large-format 4K displays for boardrooms, lobbies and dashboards.',
     list: ['65" to 98" sizes', 'Extended-hours operation', 'Wall or stand mount'],
   },

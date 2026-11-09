@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Onfinity — View in your space</title>
+  <meta name="description" content="Place Onfinity products in your room at real size with augmented reality." />
+  <meta name="theme-color" content="#020d0a" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { min-height: 100vh; display: grid; place-items: center; }
+    .ar-fallback { text-align: center; color: var(--muted); padding: 24px; }
+    .ar-fallback a { color: var(--lime); }
+  </style>
+</head>
+<body>
+  <noscript><p class="ar-fallback">Please enable JavaScript to view this product in AR.</p></noscript>
+  <p class="ar-fallback" id="arFallback">Loading…</p>
+  <script type="module">
+    import { openAR } from './js/ar-viewer.js';
+    const id = new URLSearchParams(location.search).get('m') || 'tv-55';
+    openAR(id, { standalone: true, source: 'qr' }).then(() => { document.getElementById('arFallback').remove(); });
+  </script>
+</body>
+</html>

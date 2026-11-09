@@ -4,14 +4,24 @@ An interactive, WebGL-first concept for **Onfinity Technologies** (onfinitytechn
 
 ## Run it
 
-It's a static site with no build step. Serve the folder over HTTP, because ES modules don't load from `file://`:
+Use the bundled Node server (zero dependencies, Node ≥ 18). It serves the site, the AR files with the correct content types, and the API:
 
 ```bash
 cd onfinity-3d
-python3 -m http.server 8080
+npm start
 ```
 
-Then open http://localhost:8080. Use a desktop Chrome, Edge or Safari with hardware acceleration for the full experience.
+Then open http://localhost:8080. The terminal also prints your network address (for example `http://192.168.1.20:8080`). The desktop QR code uses that address, so a phone on the same Wi-Fi can open products in AR.
+
+Any static server still works for the 3D site (`python3 -m http.server`), but iPhone Quick Look needs the server's `.usdz` content type and the analytics/leads APIs need the Node server.
+
+**For WebXR on Android and the live-camera preview on phones, the page must be served over HTTPS.** Either deploy it, or run with a certificate:
+
+```bash
+HTTPS_KEY=key.pem HTTPS_CERT=cert.pem npm start
+```
+
+iPhone Quick Look and Android Scene Viewer also work over plain HTTP on your local network.
 
 ## The experience
 
@@ -51,6 +61,61 @@ Page behaviour:
 
 Global details: Lenis smooth scroll, GSAP ScrollTrigger, custom magnetic cursor, film grain, split-text reveals, a hide-on-scroll header, a full-screen menu, keyboard support and `prefers-reduced-motion` handling.
 
+## AR: "View in your space"
+
+Visitors can place any product in their own room at its **real size**:
+- **Showroom:** click a screen, and the product card has a "View on your wall" or "View on your floor" button.
+- **Shop configurator:** "View on your wall · AR", using the selected size.
+- **Each 3D product page:** in the hero and next to the specs.
+
+| Device | What happens |
+|---|---|
+| **iPhone / iPad (Safari)** | AR Quick Look opens with the baked `.usdz`. Wall products anchor to vertical planes, floor products to horizontal ones. |
+| **Android (Chrome + ARCore)** | WebXR in the page (needs HTTPS), otherwise Google Scene Viewer, with wall or floor placement. |
+| **Phone without AR** | Live camera preview: the model is drawn over the rear camera feed (drag to turn, pinch to zoom). |
+| **Desktop** | Interactive 3D preview plus a **QR code** that opens `ar.html?m=<model>` on a phone. |
+
+- **Fixed scale:** `ar-scale="fixed"`, so people can't shrink a 98″ TV to make it fit.
+- **Measurements:** the 3D preview labels width and height on the model.
+- **Sizes:** TVs and interactive panels have size chips (32–98″), each its own true-size model.
+- **Built on Google's `<model-viewer>`:** vendored in `vendor/model-viewer.min.js` and loaded only when the viewer first opens.
+
+### AR model pipeline
+
+`js/ar-models.js` defines the AR catalogue with real-world dimensions. It reuses the procedural product models and converts them to export-safe materials (Standard PBR, front-sided, no shaders, lights or helpers). `npm run export:ar` bakes them in headless Chromium:
+
+```bash
+npm i -D playwright && npx playwright install chromium   # once
+npm run export:ar                                        # all models
+npm run export:ar -- tv-55 kiosk                         # just some
+```
+
+Output goes to `assets/ar/`: `<id>.glb` (Android/WebXR), `<id>.usdz` (iOS) and `manifest.json` with sizes in metres. Textures are JPEG, so a TV is about 260 KB as GLB and 450 KB as USDZ. `vendor/three/addons/exporters/USDZExporter.js` carries a one-line patch to write JPEG instead of PNG.
+
+| Model | Placement | Real size (W × H × D) |
+|---|---|---|
+| Smart 4K TV 32–98″ | wall | 0.72 × 0.42 m … 2.18 × 1.25 m |
+| Interactive flat panel 75″ / 86″ | wall | 1.70 × 0.98 m / 1.95 × 1.12 m |
+| Commercial / info display 55″ | wall | 1.24 × 0.71 m |
+| LED video wall | wall | 3.40 × 1.09 m |
+| Signage kiosk 43″ | floor | 0.71 × 1.89 m |
+| PTZ conference camera | floor / table | 17 × 19 cm |
+| Digital visualizer | floor / table | 42 × 26 cm |
+
+## Backend (`server/server.mjs`)
+
+Zero dependencies, using Node's built-in `http`/`https` modules.
+
+- **Static hosting:** AR content types (`model/gltf-binary`, `model/vnd.usdz+zip`), ETag/304, cache headers, and partial-download support (Quick Look and Scene Viewer fetch in ranges). It blocks path traversal and hides `server/`, dotfiles and `node_modules`.
+- **API:**
+  - `GET /api/health`
+  - `GET /api/ar/manifest`: the AR catalogue.
+  - `GET /api/network`: local network URLs, so desktop QR codes work on phones.
+  - `POST /api/events`: AR analytics (`view_3d`, `ar_launch`, `ar_placed`, `ar_failed`, `ar_unsupported`, `qr_shown`, `camera_preview`, `size_change`). Validated, rate-limited, IPs hashed, append-only file in `server/data/` (git-ignored).
+  - `GET /api/events/summary`: counts per event and model, plus the AR placement rate.
+  - `POST /api/leads`: the book-a-demo form posts here (validated, rate-limited, stored as NDJSON).
+- **Tests:** `npm run test:api` (node:test, 9 tests).
+
 ## Brand system (from the current site)
 
 - **Colours:** logo green `#105F42`, site green `#034238`, lime `#B8D433`, sun-yellow `#FFCB05` / `#FFC008`, cream `#F3DFBE`, ink `#231F20`.
@@ -81,6 +146,13 @@ js/product-page.js     studio scene, station camera arcs, hotspot callouts, loup
 js/models.js           procedural animated product models
 js/product-data.js     product copy, specs, models (from the client site)
 js/fx.js               cursor liquid-lens post FX, boot log, circular wipe, shared chrome
+ar.html                standalone AR page (QR target)
+js/ar-viewer.js        AR viewer: model-viewer, sizes, QR hand-off, camera fallback, analytics
+js/ar-models.js        AR catalogue + export-safe real-scale model builders
+tools/                 AR export pipeline (ar-export.html + export-ar.mjs)
+assets/ar/             baked GLB + USDZ + manifest.json
+server/                Node server, API and tests
+package.json           npm start / export:ar / test:api
 assets/products        Onfinity's original product photos + screen-content crops
 vendor/                three.js r170, GSAP 3.12.5 + ScrollTrigger, Lenis 1.1.18 (vendored, no CDN)
 assets/img, assets/clients
@@ -89,6 +161,6 @@ assets/img, assets/clients
 ## Next steps for production
 
 1. Swap placeholder prices and confirm specs per model with Onfinity.
-2. Connect the cart to Shopify / WooCommerce and Razorpay, and the demo form to their CRM.
+2. Connect the cart to Shopify / WooCommerce and Razorpay, and forward `/api/leads` to their CRM (it currently stores NDJSON).
 3. Optional: a real GLB model of an Onfinity TV in place of the procedural one, plus product video on the showroom screens.
 4. Add product detail pages for the TV series and IFPDs in the same template, plus SEO and analytics.
