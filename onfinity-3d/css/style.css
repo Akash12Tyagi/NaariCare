@@ -601,7 +601,20 @@ html.arv-lock, html.arv-lock body { overflow: hidden !important; }
 model-viewer[ar-status="session-started"] > .arv-ar-prompt { display: flex; }
 model-viewer[ar-status="object-placed"] > .arv-ar-prompt { display: none; }
 @keyframes arHand { 0%, 100% { transform: translateX(-30px); } 50% { transform: translateX(30px); } }
-.arv-sizes { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.arv-row { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; margin: 16px 0 0; }
+.arv-place button { font-size: 13px; }
+.arv-place button[aria-checked="true"] { background: var(--text); color: var(--ink); }
+.arv-sizes { display: flex; flex-wrap: wrap; gap: 8px; }
+/* inside an AR session: hide the 3D-preview size tags, show a compact HUD instead */
+.arv-ar-hud { display: none; }
+model-viewer[ar-status="session-started"] .arv-hs, model-viewer[ar-status="object-placed"] .arv-hs { display: none; }
+model-viewer[ar-status="session-started"] .arv-ar-hud, model-viewer[ar-status="object-placed"] .arv-ar-hud {
+  display: grid; gap: 4px; position: absolute; left: 12px; right: 12px; top: max(12px, env(safe-area-inset-top)); padding: 12px 14px;
+  border-radius: 14px; background: rgba(2, 13, 10, .72); color: #fff; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.arv-ar-hud b { font-size: 15px; font-weight: 600; }
+.arv-ar-hud span { font: 600 12px ui-monospace, Menlo, monospace; color: var(--lime); letter-spacing: .06em; }
+.arv-ar-hud em { font-style: normal; font-size: 13px; color: rgba(255,255,255,.82); }
 .arv-sizes button { min-width: 58px; height: 42px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); font-variant-numeric: tabular-nums; }
 .arv-sizes button[aria-checked="true"] { background: var(--lime); color: var(--ink); border-color: var(--lime); font-weight: 600; }
 .arv-actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }

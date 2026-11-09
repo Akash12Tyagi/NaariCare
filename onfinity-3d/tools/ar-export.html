@@ -48,7 +48,7 @@
           ar: { anchoring: { type: 'plane' }, planeAnchoring: { alignment: it.placement === 'wall' ? 'vertical' : 'horizontal' } },
         });
         files.push({ name: `${it.id}.glb`, data: b64(glb) }, { name: `${it.id}.usdz`, data: b64(usd) });
-        manifest.push({ id: it.id, group: it.group, size: it.size ?? null, name: it.name, placement: it.placement, allowFloor: it.allowFloor !== false, dims, glb: `assets/ar/${it.id}.glb`, usdz: `assets/ar/${it.id}.usdz` });
+        manifest.push({ id: it.id, group: it.group, size: it.size ?? null, alt: it.alt ?? null, name: it.name, placement: it.placement, dims, glb: `assets/ar/${it.id}.glb`, usdz: `assets/ar/${it.id}.usdz` });
       }
       return { files, manifest };
     };

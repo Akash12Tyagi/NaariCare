@@ -10,6 +10,7 @@
 //      GET  /api/network              LAN URLs so desktop QR codes work on phones
 //      POST /api/events               AR / 3D analytics (append-only NDJSON)
 //      GET  /api/events/summary       aggregated counts by event and model
+//      GET  /api/events/recent        latest events with device + AR mode (debug a phone test)
 //      POST /api/leads                demo / enquiry form submissions
 //  • Optional HTTPS (WebXR + camera need a secure context off-localhost):
 //      HTTPS_KEY=key.pem HTTPS_CERT=cert.pem node server/server.mjs
@@ -115,6 +116,12 @@ async function api(req, res, url, ctx) {
       }
       const launches = byType.ar_launch || 0, placed = byType.ar_placed || 0;
       return send(res, 200, { total: ev.length, byType, byModel, placementRate: launches ? +(placed / launches).toFixed(3) : null });
+    }
+    case 'GET /api/events/recent': {
+      const limit = Math.min(Math.max(Number(url.searchParams.get('limit')) || 50, 1), 500);
+      const ev = await readNdjson('events.ndjson');
+      const device = (ua = '') => (/iPhone|iPad/.test(ua) ? 'iOS' : /Android/.test(ua) ? 'Android' : /Mac|Windows|Linux/.test(ua) ? 'Desktop' : 'Other');
+      return send(res, 200, { events: ev.slice(-limit).reverse().map((e) => ({ ...e, device: device(e.ua) })) });
     }
     case 'POST /api/leads': {
       if (!allow(ip, 10, 60, 0.2)) return send(res, 429, { error: 'Too many requests' });

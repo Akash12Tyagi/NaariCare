@@ -54,7 +54,13 @@ function build() {
         <video class="arv-cam" playsinline muted></video>
         <div class="arv-loading" id="arvLoading"><span></span>Loading 3D model…</div>
       </div>
-      <div class="arv-sizes" id="arvSizes" role="radiogroup" aria-label="Screen size"></div>
+      <div class="arv-row">
+        <div class="seg arv-place" id="arvPlace" role="radiogroup" aria-label="Placement" hidden>
+          <button type="button" role="radio" data-place="wall">On the wall</button>
+          <button type="button" role="radio" data-place="floor">On a table / floor</button>
+        </div>
+        <div class="arv-sizes" id="arvSizes" role="radiogroup" aria-label="Screen size"></div>
+      </div>
       <div class="arv-actions">
         <div class="arv-hint" id="arvHint"></div>
         <div class="arv-buttons">
@@ -81,9 +87,12 @@ function build() {
 function makeViewer() {
   mv = document.createElement('model-viewer');
   const attrs = {
-    ar: '', 'ar-modes': 'webxr scene-viewer quick-look', 'ar-scale': 'fixed', 'camera-controls': '', 'touch-action': 'pan-y',
+    // Native AR first: Scene Viewer (Android/ARCore) and Quick Look (iOS) render far more reliably than
+    // in-page WebXR, which stays as the fallback. No 'xr-environment': light estimation can make dark
+    // products almost invisible in dim rooms.
+    ar: '', 'ar-modes': 'scene-viewer quick-look webxr', 'ar-scale': 'fixed', 'camera-controls': '', 'touch-action': 'pan-y',
     'shadow-intensity': '1', 'shadow-softness': '0.85', 'environment-image': 'neutral', exposure: '1.0', 'interaction-prompt': 'auto',
-    'auto-rotate': '', 'auto-rotate-delay': '2500', 'rotation-per-second': '12deg', 'xr-environment': '', loading: 'eager',
+    'auto-rotate': '', 'auto-rotate-delay': '2500', 'rotation-per-second': '12deg', loading: 'eager',
   };
   Object.entries(attrs).forEach(([k, v]) => mv.setAttribute(k, v));
   mv.innerHTML = `
@@ -91,17 +100,28 @@ function makeViewer() {
     <div slot="progress-bar" class="arv-progress"><i></i></div>
     <button slot="hotspot-w" class="arv-hs" data-position="0m 0m 0m" data-normal="0m 1m 0m" data-visibility-attribute="visible"><span id="arvHsW"></span></button>
     <button slot="hotspot-h" class="arv-hs" data-position="0m 0m 0m" data-normal="1m 0m 0m" data-visibility-attribute="visible"><span id="arvHsH"></span></button>
-    <div class="arv-ar-prompt" slot="ar-prompt">${icon}<p></p></div>`;
+    <div class="arv-ar-prompt" slot="ar-prompt">${icon}<p></p></div>
+    <div class="arv-ar-hud"><b id="arvHudName"></b><span id="arvHudSize"></span><em id="arvHudTip"></em></div>`;
   el.querySelector('.arv-stage').appendChild(mv);
-  mv.querySelector('#arvArBtn').addEventListener('click', () => track('ar_launch', state.item.id, { mode: isIOS ? 'quick-look' : 'webxr/scene-viewer' }));
+  mv.querySelector('#arvArBtn').addEventListener('click', () => { stopCamera(); track('ar_launch', state.item.id, { mode: arMode() }); });
   mv.addEventListener('progress', (e) => { mv.querySelector('.arv-progress i').style.transform = `scaleX(${e.detail.totalProgress})`; });
   mv.addEventListener('load', onLoaded);
   mv.addEventListener('error', () => status('Could not load this model. Please try again.'));
   mv.addEventListener('ar-status', (e) => {
     const s = e.detail.status;
-    if (s === 'object-placed') { track('ar_placed', state.item.id); status('Placed at real size. Walk around it!'); }
-    if (s === 'failed') { track('ar_failed', state.item.id); status('AR could not start on this device — try the live camera preview.'); showCameraFallback(); }
-    if (s === 'session-started') status('');
+    if (s === 'object-placed') { clearTimeout(state.placeTimer); track('ar_placed', state.item.id, { mode: 'webxr' }); status('Placed at real size. Walk around it!'); el.querySelector('#arvHudTip').textContent = 'True size · walk around it'; }
+    if (s === 'failed') { clearTimeout(state.placeTimer); track('ar_failed', state.item.id, { mode: arMode() }); status('AR could not start on this device — use the live camera preview below.'); showCameraFallback(true); }
+    if (s === 'session-started') {
+      status('');
+      el.querySelector('#arvHudTip').textContent = placementCopy(state.item.placement).hint;
+      clearTimeout(state.placeTimer);
+      state.placeTimer = setTimeout(() => {
+        el.querySelector('#arvHudTip').textContent = state.item.placement === 'wall'
+          ? 'Plain walls are hard to detect — aim at a wall with a switchboard, frame or edge, 1–2 m away. Or close AR and choose “On a table”.'
+          : 'Move closer to the floor or table and sweep slowly. Good light helps.';
+      }, 9000);
+    }
+    if (s === 'not-presenting') clearTimeout(state.placeTimer);
   });
 }
 
@@ -121,6 +141,7 @@ function onLoaded() {
   if (mv.canActivateAR) {
     el.classList.add('has-ar');
     status('');
+    if (isMobile) showCameraFallback(false);   // always give phones a guaranteed way to see it on camera
   } else if (isMobile) {
     showCameraFallback();
     track('ar_unsupported', state.item.id);
@@ -131,11 +152,12 @@ function onLoaded() {
 
 function status(t) { el.querySelector('#arvStatus').textContent = t; }
 
-function showCameraFallback() {
+function showCameraFallback(noAR = true) {
   if (!navigator.mediaDevices?.getUserMedia) return;
   el.querySelector('#arvCamBtn').hidden = false;
-  el.querySelector('#arvHint').textContent = 'Your browser doesn’t support AR placement, but you can preview it over your camera.';
+  if (noAR) el.querySelector('#arvHint').textContent = 'AR placement isn’t available in this browser — preview it over your camera instead.';
 }
+const arMode = () => (isIOS ? 'quick-look' : /Android/i.test(navigator.userAgent) ? 'scene-viewer/webxr' : 'none');
 
 async function toggleCamera() {
   const btn = el.querySelector('#arvCamBtn'), video = el.querySelector('.arv-cam');
@@ -195,6 +217,17 @@ function setItem(item) {
   const copy = placementCopy(item.placement);
   el.querySelector('#arvTitle').textContent = item.name;
   el.querySelector('#arvDims').textContent = `${fmt(item.dims.w)} wide · ${fmt(item.dims.h)} tall · ${fmt(item.dims.d)} deep`;
+  el.querySelector('#arvHudName').textContent = item.name;
+  el.querySelector('#arvHudSize').textContent = `${fmt(item.dims.w)} × ${fmt(item.dims.h)} · true size`;
+  const place = el.querySelector('#arvPlace');
+  place.hidden = !item.alt;
+  place.querySelectorAll('button').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.place === item.placement)));
+  place.onclick = (e) => {
+    const b = e.target.closest('button[data-place]');
+    if (!b || b.dataset.place === state.item.placement || !state.item.alt) return;
+    const alt = state.items.find((m) => m.id === state.item.alt);
+    if (alt) { setItem(alt); track('size_change', alt.id, { mode: 'placement:' + alt.placement }); }
+  };
   el.querySelector('#arvLoading').classList.remove('done');
   el.querySelector('#arvHint').textContent = copy.hint;
   el.querySelector('#arvEnquire').href = new URL(`index.html?model=${item.id}#contact`, BASE).href;

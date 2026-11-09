@@ -1,17 +1,17 @@
 {
-  "generated": "2026-11-09T11:55:07.435Z",
+  "generated": "2026-11-09T12:19:53.312Z",
   "units": "metres",
   "models": [
     {
       "id": "tv-32",
       "group": "tv",
       "size": 32,
+      "alt": "tv-32-stand",
       "name": "Onfinity Smart 4K TV · 32″",
       "placement": "wall",
-      "allowFloor": false,
       "dims": {
-        "w": 0.72,
-        "h": 0.42,
+        "w": 0.728,
+        "h": 0.425,
         "d": 0.041
       },
       "glb": "assets/ar/tv-32.glb",
@@ -21,12 +21,12 @@
       "id": "tv-43",
       "group": "tv",
       "size": 43,
+      "alt": "tv-43-stand",
       "name": "Onfinity Smart 4K TV · 43″",
       "placement": "wall",
-      "allowFloor": false,
       "dims": {
-        "w": 0.964,
-        "h": 0.56,
+        "w": 0.972,
+        "h": 0.564,
         "d": 0.041
       },
       "glb": "assets/ar/tv-43.glb",
@@ -36,12 +36,12 @@
       "id": "tv-55",
       "group": "tv",
       "size": 55,
+      "alt": "tv-55-stand",
       "name": "Onfinity Smart 4K TV · 55″",
       "placement": "wall",
-      "allowFloor": false,
       "dims": {
-        "w": 1.23,
-        "h": 0.712,
+        "w": 1.238,
+        "h": 0.716,
         "d": 0.041
       },
       "glb": "assets/ar/tv-55.glb",
@@ -51,12 +51,12 @@
       "id": "tv-65",
       "group": "tv",
       "size": 65,
+      "alt": "tv-65-stand",
       "name": "Onfinity Smart 4K TV · 65″",
       "placement": "wall",
-      "allowFloor": false,
       "dims": {
-        "w": 1.451,
-        "h": 0.838,
+        "w": 1.459,
+        "h": 0.842,
         "d": 0.041
       },
       "glb": "assets/ar/tv-65.glb",
@@ -66,12 +66,12 @@
       "id": "tv-75",
       "group": "tv",
       "size": 75,
+      "alt": "tv-75-stand",
       "name": "Onfinity Smart 4K TV · 75″",
       "placement": "wall",
-      "allowFloor": false,
       "dims": {
-        "w": 1.672,
-        "h": 0.964,
+        "w": 1.68,
+        "h": 0.968,
         "d": 0.041
       },
       "glb": "assets/ar/tv-75.glb",
@@ -81,12 +81,12 @@
       "id": "tv-86",
       "group": "tv",
       "size": 86,
+      "alt": "tv-86-stand",
       "name": "Onfinity Smart 4K TV · 86″",
       "placement": "wall",
-      "allowFloor": false,
       "dims": {
-        "w": 1.916,
-        "h": 1.101,
+        "w": 1.924,
+        "h": 1.105,
         "d": 0.041
       },
       "glb": "assets/ar/tv-86.glb",
@@ -96,12 +96,12 @@
       "id": "tv-98",
       "group": "tv",
       "size": 98,
+      "alt": "tv-98-stand",
       "name": "Onfinity Smart 4K TV · 98″",
       "placement": "wall",
-      "allowFloor": false,
       "dims": {
-        "w": 2.182,
-        "h": 1.25,
+        "w": 2.19,
+        "h": 1.254,
         "d": 0.041
       },
       "glb": "assets/ar/tv-98.glb",
@@ -111,12 +111,12 @@
       "id": "ifpd-75",
       "group": "ifpd",
       "size": 75,
+      "alt": null,
       "name": "Onfinity Interactive Flat Panel · 75″",
       "placement": "wall",
-      "allowFloor": true,
       "dims": {
-        "w": 1.704,
-        "h": 0.982,
+        "w": 1.712,
+        "h": 0.986,
         "d": 0.103
       },
       "glb": "assets/ar/ifpd-75.glb",
@@ -126,12 +126,12 @@
       "id": "ifpd-86",
       "group": "ifpd",
       "size": 86,
+      "alt": null,
       "name": "Onfinity Interactive Flat Panel · 86″",
       "placement": "wall",
-      "allowFloor": true,
       "dims": {
-        "w": 1.948,
-        "h": 1.119,
+        "w": 1.956,
+        "h": 1.123,
         "d": 0.103
       },
       "glb": "assets/ar/ifpd-86.glb",
@@ -141,12 +141,12 @@
       "id": "display-55",
       "group": "display",
       "size": 55,
+      "alt": null,
       "name": "Onfinity Commercial Display · 55″",
       "placement": "wall",
-      "allowFloor": true,
       "dims": {
-        "w": 1.238,
-        "h": 0.712,
+        "w": 1.246,
+        "h": 0.716,
         "d": 0.073
       },
       "glb": "assets/ar/display-55.glb",
@@ -156,12 +156,12 @@
       "id": "display-info",
       "group": "display-info",
       "size": 55,
+      "alt": null,
       "name": "Onfinity Information Display · 55″",
       "placement": "wall",
-      "allowFloor": true,
       "dims": {
-        "w": 1.238,
-        "h": 0.712,
+        "w": 1.246,
+        "h": 0.716,
         "d": 0.073
       },
       "glb": "assets/ar/display-info.glb",
@@ -171,9 +171,9 @@
       "id": "led",
       "group": "led",
       "size": null,
+      "alt": null,
       "name": "Onfinity LED Video Wall · 3.4 × 1.0 m",
       "placement": "wall",
-      "allowFloor": true,
       "dims": {
         "w": 3.399,
         "h": 1.092,
@@ -186,9 +186,9 @@
       "id": "kiosk",
       "group": "kiosk",
       "size": null,
+      "alt": null,
       "name": "Onfinity Digital Signage Kiosk · 43″",
       "placement": "floor",
-      "allowFloor": true,
       "dims": {
         "w": 0.708,
         "h": 1.894,
@@ -201,9 +201,9 @@
       "id": "camera",
       "group": "camera",
       "size": null,
+      "alt": null,
       "name": "Onfinity PTZ Conference Camera",
       "placement": "floor",
-      "allowFloor": true,
       "dims": {
         "w": 0.17,
         "h": 0.191,
@@ -216,9 +216,9 @@
       "id": "visualizer",
       "group": "visualizer",
       "size": null,
+      "alt": null,
       "name": "Onfinity Digital Visualizer",
       "placement": "floor",
-      "allowFloor": true,
       "dims": {
         "w": 0.42,
         "h": 0.263,
@@ -226,6 +226,111 @@
       },
       "glb": "assets/ar/visualizer.glb",
       "usdz": "assets/ar/visualizer.usdz"
+    },
+    {
+      "id": "tv-32-stand",
+      "group": "tv-stand",
+      "size": 32,
+      "alt": "tv-32",
+      "name": "Onfinity Smart 4K TV · 32″ on stand",
+      "placement": "floor",
+      "dims": {
+        "w": 0.728,
+        "h": 0.516,
+        "d": 0.167
+      },
+      "glb": "assets/ar/tv-32-stand.glb",
+      "usdz": "assets/ar/tv-32-stand.usdz"
+    },
+    {
+      "id": "tv-43-stand",
+      "group": "tv-stand",
+      "size": 43,
+      "alt": "tv-43",
+      "name": "Onfinity Smart 4K TV · 43″ on stand",
+      "placement": "floor",
+      "dims": {
+        "w": 0.972,
+        "h": 0.653,
+        "d": 0.167
+      },
+      "glb": "assets/ar/tv-43-stand.glb",
+      "usdz": "assets/ar/tv-43-stand.usdz"
+    },
+    {
+      "id": "tv-55-stand",
+      "group": "tv-stand",
+      "size": 55,
+      "alt": "tv-55",
+      "name": "Onfinity Smart 4K TV · 55″ on stand",
+      "placement": "floor",
+      "dims": {
+        "w": 1.238,
+        "h": 0.802,
+        "d": 0.167
+      },
+      "glb": "assets/ar/tv-55-stand.glb",
+      "usdz": "assets/ar/tv-55-stand.usdz"
+    },
+    {
+      "id": "tv-65-stand",
+      "group": "tv-stand",
+      "size": 65,
+      "alt": "tv-65",
+      "name": "Onfinity Smart 4K TV · 65″ on stand",
+      "placement": "floor",
+      "dims": {
+        "w": 1.459,
+        "h": 0.927,
+        "d": 0.167
+      },
+      "glb": "assets/ar/tv-65-stand.glb",
+      "usdz": "assets/ar/tv-65-stand.usdz"
+    },
+    {
+      "id": "tv-75-stand",
+      "group": "tv-stand",
+      "size": 75,
+      "alt": "tv-75",
+      "name": "Onfinity Smart 4K TV · 75″ on stand",
+      "placement": "floor",
+      "dims": {
+        "w": 1.68,
+        "h": 1.051,
+        "d": 0.167
+      },
+      "glb": "assets/ar/tv-75-stand.glb",
+      "usdz": "assets/ar/tv-75-stand.usdz"
+    },
+    {
+      "id": "tv-86-stand",
+      "group": "tv-stand",
+      "size": 86,
+      "alt": "tv-86",
+      "name": "Onfinity Smart 4K TV · 86″ on stand",
+      "placement": "floor",
+      "dims": {
+        "w": 1.924,
+        "h": 1.188,
+        "d": 0.167
+      },
+      "glb": "assets/ar/tv-86-stand.glb",
+      "usdz": "assets/ar/tv-86-stand.usdz"
+    },
+    {
+      "id": "tv-98-stand",
+      "group": "tv-stand",
+      "size": 98,
+      "alt": "tv-98",
+      "name": "Onfinity Smart 4K TV · 98″ on stand",
+      "placement": "floor",
+      "dims": {
+        "w": 2.19,
+        "h": 1.338,
+        "d": 0.167
+      },
+      "glb": "assets/ar/tv-98-stand.glb",
+      "usdz": "assets/ar/tv-98-stand.usdz"
     }
   ]
 }

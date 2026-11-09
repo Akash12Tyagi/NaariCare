@@ -71,13 +71,16 @@ Visitors can place any product in their own room at its **real size**:
 | Device | What happens |
 |---|---|
 | **iPhone / iPad (Safari)** | AR Quick Look opens with the baked `.usdz`. Wall products anchor to vertical planes, floor products to horizontal ones. |
-| **Android (Chrome + ARCore)** | WebXR in the page (needs HTTPS), otherwise Google Scene Viewer, with wall or floor placement. |
+| **Android (Chrome + ARCore)** | Google **Scene Viewer** (native ARCore) first, with wall or floor placement. In-page WebXR is the fallback (needs HTTPS). |
 | **Phone without AR** | Live camera preview: the model is drawn over the rear camera feed (drag to turn, pinch to zoom). |
 | **Desktop** | Interactive 3D preview plus a **QR code** that opens `ar.html?m=<model>` on a phone. |
 
 - **Fixed scale:** `ar-scale="fixed"`, so people can't shrink a 98″ TV to make it fit.
 - **Measurements:** the 3D preview labels width and height on the model.
 - **Sizes:** TVs and interactive panels have size chips (32–98″), each its own true-size model.
+- **Wall or table:** TVs have an "On the wall" / "On a table / floor" switch. The table version is the same TV on its blade feet (`tv-55-stand` and so on), because floor and table detection is far more reliable than wall detection.
+- **Camera preview on every phone:** a guaranteed way to see the product on camera, even when AR can't find a surface.
+- **During an AR session:** the 3D-preview size tags are hidden and a compact HUD shows the name, true size and coaching. After 9 s without placement it explains how to find a wall, or to switch to "On a table".
 - **Built on Google's `<model-viewer>`:** vendored in `vendor/model-viewer.min.js` and loaded only when the viewer first opens.
 
 ### AR model pipeline
@@ -95,6 +98,7 @@ Output goes to `assets/ar/`: `<id>.glb` (Android/WebXR), `<id>.usdz` (iOS) and `
 | Model | Placement | Real size (W × H × D) |
 |---|---|---|
 | Smart 4K TV 32–98″ | wall | 0.72 × 0.42 m … 2.18 × 1.25 m |
+| Smart 4K TV on stand 32–98″ | floor / table | 0.73 × 0.51 m … 2.19 × 1.34 m |
 | Interactive flat panel 75″ / 86″ | wall | 1.70 × 0.98 m / 1.95 × 1.12 m |
 | Commercial / info display 55″ | wall | 1.24 × 0.71 m |
 | LED video wall | wall | 3.40 × 1.09 m |
@@ -113,8 +117,19 @@ Zero dependencies, using Node's built-in `http`/`https` modules.
   - `GET /api/network`: local network URLs, so desktop QR codes work on phones.
   - `POST /api/events`: AR analytics (`view_3d`, `ar_launch`, `ar_placed`, `ar_failed`, `ar_unsupported`, `qr_shown`, `camera_preview`, `size_change`). Validated, rate-limited, IPs hashed, append-only file in `server/data/` (git-ignored).
   - `GET /api/events/summary`: counts per event and model, plus the AR placement rate.
+  - `GET /api/events/recent?limit=50`: latest events with device (iOS/Android/Desktop) and AR mode, for debugging a real-phone test.
   - `POST /api/leads`: the book-a-demo form posts here (validated, rate-limited, stored as NDJSON).
-- **Tests:** `npm run test:api` (node:test, 9 tests).
+- **Tests:** `npm run test:api` (node:test, 10 tests).
+
+### AR troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Size shows but no product on camera | In-page WebXR drew the HTML labels, but the model was unlit (light estimation) or still waiting for a wall | Fixed: Scene Viewer / Quick Look first, light estimation off, lighter frame with aluminium trim, labels hidden in AR. |
+| Product never appears on the wall | ARCore / ARKit can't detect plain, untextured walls | Aim at a wall with a switchboard, frame or edge, 1–2 m away. Or choose **On a table / floor**. |
+| Android opens nothing | Scene Viewer needs the Google app with AR support, and must be able to download the `.glb` from the page URL | Use a deployed URL or your LAN IP (not `localhost`). Otherwise use the camera preview. |
+| iPhone shows a blank page or a download | `.usdz` served with the wrong content type | Serve with `npm start` (sends `model/vnd.usdz+zip`). |
+| Unsure what happened on a test phone | — | Open `/api/events/recent`: it lists device, model, AR mode and failures. |
 
 ## Brand system (from the current site)
 
