@@ -222,7 +222,7 @@ menuBtn.addEventListener('click', () => {
   gsap.fromTo('.menu-link', { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: 0.05, duration: 0.9, ease: 'expo.out', delay: 0.25 });
 });
 
-$$('.nav a').forEach((a) => {
+$$('.nav a[href^="#"]').forEach((a) => {
   const id = a.getAttribute('href');
   ScrollTrigger.create({ trigger: id, start: 'top center', end: 'bottom center', onToggle: (s) => a.classList.toggle('is-active', s.isActive) });
 });
@@ -423,6 +423,7 @@ function openModal(i) {
   $('#modalTitle').textContent = it.title;
   $('#modalDesc').textContent = it.desc;
   $('#modalList').innerHTML = it.list.map((l) => `<li>${l}</li>`).join('');
+  const m3d = $('#modal3d'); m3d.hidden = !it.pid; if (it.pid) m3d.href = `product.html?p=${it.pid}`;
   modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
   lenis?.stop();
   sound.tick();

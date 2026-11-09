@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Onfinity Products — The Orbit</title>
+  <meta name="description" content="Explore Onfinity's conferencing cameras, LED walls, kiosks, visualizers and commercial displays in 3D." />
+  <meta name="theme-color" content="#020d0a" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/products.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script type="module" src="js/orbit.js"></script>
+</head>
+<body class="orbit-page is-loading" data-scroll="virtual">
+  <div class="boot" id="boot" role="status" aria-live="polite">
+    <div class="boot-inner">
+      <p class="boot-brand"><img src="assets/img/favicon.png" alt="" /> Onfinity · Product orbit</p>
+      <ol id="bootLog"></ol>
+      <div class="boot-pct"><span id="bootPct">000</span><small>%</small></div>
+    </div>
+  </div>
+  <div class="wipe in" id="wipe" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span class="cursor-label"></span></div></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header" id="header">
+    <a href="index.html" class="brand" data-transition aria-label="Onfinity home"><img src="assets/img/favicon.png" alt="" width="34" height="34" /><span class="brand-word">Ōnfinity</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" data-transition>Televisions</a>
+      <a href="products.html" class="is-active">Products</a>
+      <a href="index.html#shop" data-transition>Shop</a>
+      <a href="index.html#contact" data-transition>Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="cart-btn" href="index.html#shop" data-transition>Cart <span class="cart-count" id="cartCount">0</span></a>
+    </div>
+  </header>
+
+  <canvas id="orbit" aria-label="3D orbit of Onfinity products. Scroll, drag or use arrow keys to rotate; press Enter to open."></canvas>
+
+  <div class="orbit-ui">
+    <p class="orbit-hint"><i></i>Scroll · drag · ← → to orbit</p>
+    <div class="orbit-title">
+      <p class="kick"><span id="oIdx">01</span><span id="oKick">Video conferencing</span></p>
+      <h1 id="oTitle" aria-live="polite"></h1>
+      <p class="lede" id="oLede"></p>
+      <a class="btn btn-primary btn-lg" id="oGo" href="product.html?p=camera" data-magnetic><span>Explore in 3D</span></a>
+    </div>
+    <ul class="orbit-list" id="oList"></ul>
+    <svg class="orbit-progress" viewBox="0 0 74 74" aria-hidden="true">
+      <circle class="bg" cx="37" cy="37" r="33" />
+      <circle class="fg" id="oRing" cx="37" cy="37" r="33" stroke-dasharray="207.3" stroke-dashoffset="207.3" />
+      <text x="37" y="42" text-anchor="middle" id="oRingTxt">01</text>
+    </svg>
+  </div>
+
+  <div class="hud" aria-hidden="true">
+    <span class="hud-xy">X: <b id="hx">0000</b> PX <span class="sep">/</span> Y: <b id="hy">0000</b> PX</span>
+    <span>Orbit <b id="hAng">000</b>° <span class="sep">·</span> Velocity <b id="hVel">0.00</b></span>
+  </div>
+</body>
+</html>
