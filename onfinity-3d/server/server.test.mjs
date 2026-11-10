@@ -80,6 +80,14 @@ test('events: validates and aggregates', async () => {
   assert.equal(s.placementRate, 1);
 });
 
+test('events: accepts AR follow-up feedback and photo captures', async () => {
+  assert.equal((await post('/api/events', { type: 'ar_feedback', model: 'tv-55', mode: 'no' })).status, 204);
+  assert.equal((await post('/api/events', { type: 'photo_taken', model: 'kiosk' })).status, 204);
+  const { events } = await (await fetch(base + '/api/events/recent?limit=2')).json();
+  assert.deepEqual(events.map((e) => e.type), ['photo_taken', 'ar_feedback']);
+  assert.equal(events[1].mode, 'no');
+});
+
 test('recent events expose device and AR mode for debugging', async () => {
   await fetch(base + '/api/events', { method: 'POST', headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0 (Linux; Android 14; Pixel 7)' }, body: JSON.stringify({ type: 'ar_failed', model: 'tv-55', mode: 'scene-viewer/webxr' }) });
   const { events } = await (await fetch(base + '/api/events/recent?limit=5')).json();

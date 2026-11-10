@@ -68,11 +68,20 @@ Visitors can place any product in their own room at its **real size**:
 - **Shop configurator:** "View on your wall · AR", using the selected size.
 - **Each 3D product page:** in the hero and next to the specs.
 
+**The guided flow.** Nobody is dropped into a camera without knowing what to do:
+
+1. **Choose:** a 3D preview with real measurements, "Where will it go?" and "Screen size" options, a 3-step indicator, and **one** main button (pinned to the thumb zone on phones).
+2. **Coach sheet:** before the camera opens, a 10-second animated demo shows how to sweep the phone across a wall or floor, with three plain steps. Copy changes for iPhone and Android and for wall or floor products, and Android explains the one-time "Google Play Services for AR" prompt. Visitors can tick "Don't show this again".
+3. **Camera:** native AR, or the full-screen live preview.
+4. **Welcome back:** "Did it appear in your room?" On **Yes**, it confirms the exact size and offers a demo booking. On **No**, it gives three targeted fixes, plus one-tap "Try on a table instead", "Try again" or the simple camera preview.
+
+The phone's **Back** button closes the top layer (photo, then camera, then sheet, then viewer) and never leaves the page.
+
 | Device | What happens |
 |---|---|
 | **iPhone / iPad (Safari)** | AR Quick Look opens with the baked `.usdz`. Wall products anchor to vertical planes, floor products to horizontal ones. |
 | **Android (Chrome + ARCore)** | Google **Scene Viewer** (native ARCore) first, with wall or floor placement. In-page WebXR is the fallback (needs HTTPS). |
-| **Phone without AR** | Live camera preview: the model is drawn over the rear camera feed (drag to turn, pinch to zoom). |
+| **Phone without AR** | Full-screen live camera preview: the model stands over the rear camera feed. It has gesture hints (drag to turn, pinch to resize, two fingers to move), an honest "size is approximate" label, and a **shutter button** that saves or shares a photo of the product in the room. In-app browsers (Instagram and others) get a "Copy link" prompt to open the page in Chrome or Safari. |
 | **Desktop** | Interactive 3D preview plus a **QR code** that opens `ar.html?m=<model>` on a phone. |
 
 - **Fixed scale:** `ar-scale="fixed"`, so people can't shrink a 98″ TV to make it fit.
@@ -115,11 +124,11 @@ Zero dependencies, using Node's built-in `http`/`https` modules.
   - `GET /api/health`
   - `GET /api/ar/manifest`: the AR catalogue.
   - `GET /api/network`: local network URLs, so desktop QR codes work on phones.
-  - `POST /api/events`: AR analytics (`view_3d`, `ar_launch`, `ar_placed`, `ar_failed`, `ar_unsupported`, `qr_shown`, `camera_preview`, `size_change`). Validated, rate-limited, IPs hashed, append-only file in `server/data/` (git-ignored).
+  - `POST /api/events`: AR analytics (`view_3d`, `ar_launch`, `ar_placed`, `ar_failed`, `ar_unsupported`, `qr_shown`, `camera_preview`, `size_change`, `ar_feedback` (yes/no after AR), `photo_taken`). Validated, rate-limited, IPs hashed, append-only file in `server/data/` (git-ignored).
   - `GET /api/events/summary`: counts per event and model, plus the AR placement rate.
   - `GET /api/events/recent?limit=50`: latest events with device (iOS/Android/Desktop) and AR mode, for debugging a real-phone test.
   - `POST /api/leads`: the book-a-demo form posts here (validated, rate-limited, stored as NDJSON).
-- **Tests:** `npm run test:api` (node:test, 10 tests).
+- **Tests:** `npm run test:api` (node:test, 11 tests).
 
 ### AR troubleshooting
 
