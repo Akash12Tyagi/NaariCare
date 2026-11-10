@@ -34,7 +34,7 @@ const MIME = {
   '.woff2': 'font/woff2', '.glb': 'model/gltf-binary', '.gltf': 'model/gltf+json', '.usdz': 'model/vnd.usdz+zip',
   '.mp4': 'video/mp4', '.txt': 'text/plain; charset=utf-8', '.md': 'text/markdown; charset=utf-8',
 };
-const EVENT_TYPES = new Set(['view_3d', 'ar_launch', 'ar_placed', 'ar_failed', 'ar_unsupported', 'qr_shown', 'camera_preview', 'size_change']);
+const EVENT_TYPES = new Set(['view_3d', 'ar_launch', 'ar_placed', 'ar_failed', 'ar_unsupported', 'qr_shown', 'camera_preview', 'size_change', 'ar_feedback', 'photo_taken']);
 const ID_RE = /^[a-z0-9-]{1,40}$/;
 
 /* ---------------------------------------------------------------- helpers */
